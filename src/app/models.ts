@@ -1,5 +1,12 @@
+export interface ProductVariant {
+  id: number;
+  size: string;
+  color: string;
+  stock: number;
+}
+
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   shortDescription: string;
   price: number;
@@ -7,9 +14,9 @@ export interface Product {
   discount?: number;
   rating: number;
   reviewCount: number;
-  stock: number;
   sizes: string[];
   colors: string[];
+  variants: ProductVariant[];
   imageUrl: string;
   category: string;
   isNew?: boolean;
@@ -17,7 +24,7 @@ export interface Product {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   imageUrl: string;
 }
@@ -32,8 +39,22 @@ export interface Testimonial {
 }
 
 export interface CartItem {
-  product: Product;
+  id: number;
+  product: {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string;
+  };
   quantity: number;
   selectedSize: string;
   selectedColor: string;
+  stock: number;
+}
+
+export interface AuthUser {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
 }

@@ -1,21 +1,26 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { Product, CartItem } from './models';
-import { CATEGORIES, PRODUCTS, TESTIMONIALS } from './data';
+import { AuthUser, CartItem, Category, Product } from './models';
+import { TESTIMONIALS } from './data';
+import { ApiService } from './services/api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, MatIconModule],
+  imports: [CommonModule, CurrencyPipe, MatIconModule, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
+  private readonly api = inject(ApiService);
+  private readonly platformId = inject(PLATFORM_ID);
+
   // Data
-  categories = CATEGORIES;
-  allProducts = PRODUCTS;
+  categories = signal<Category[]>([]);
+  allProducts = signal<Product[]>([]);
   testimonials = TESTIMONIALS;
 
   // Filter State
@@ -28,41 +33,44 @@ export class App {
   // Computed Options
   availableSizes = computed(() => {
     const sizes = new Set<string>();
-    this.allProducts.forEach(p => p.sizes.forEach(s => sizes.add(s)));
+    this.allProducts().forEach(p => p.sizes.forEach(s => sizes.add(s)));
     return Array.from(sizes).sort();
   });
 
   availableColors = computed(() => {
     const colors = new Set<string>();
-    this.allProducts.forEach(p => p.colors.forEach(c => colors.add(c)));
+    this.allProducts().forEach(p => p.colors.forEach(c => colors.add(c)));
     return Array.from(colors);
   });
 
   // Filtered Products
   filteredProducts = computed(() => {
-    return this.allProducts.filter(p => {
-      const categoryMatch = this.selectedCategory() === 'All' || 
+    return this.allProducts().filter(p => {
+      const categoryMatch = this.selectedCategory() === 'All' ||
           (this.selectedCategory() === 'New Arrivals' ? p.isNew : p.category === this.selectedCategory());
-      
+
       const priceMatch = p.price <= this.maxPrice();
-      
-      const sizesMatch = this.selectedSizes().size === 0 || 
+
+      const sizesMatch = this.selectedSizes().size === 0 ||
           p.sizes.some(s => this.selectedSizes().has(s));
-          
-      const colorsMatch = this.selectedColors().size === 0 || 
+
+      const colorsMatch = this.selectedColors().size === 0 ||
           p.colors.some(c => this.selectedColors().has(c));
-          
+
       return categoryMatch && priceMatch && sizesMatch && colorsMatch;
     });
   });
 
   // Computed derivations for home page sections
-  newArrivals = computed(() => this.allProducts.filter(p => p.isNew).slice(0, 4));
-  bestSellers = computed(() => this.allProducts.filter(p => p.isBestSeller).slice(0, 4));
-  
+  newArrivals = computed(() => this.allProducts().filter(p => p.isNew).slice(0, 4));
+  bestSellers = computed(() => this.allProducts().filter(p => p.isBestSeller).slice(0, 4));
+
   // UI State
   isCartOpen = signal(false);
   isMobileMenuOpen = signal(false);
+  isAuthModalOpen = signal(false);
+  authView = signal<'login' | 'register'>('login');
+  authError = signal<string | null>(null);
 
   // Checkout/View State
   currentView = signal<'home' | 'checkout'>('home');
@@ -72,21 +80,39 @@ export class App {
   quickViewSize = signal<string>('');
   quickViewColor = signal<string>('');
   quickViewQuantity = signal<number>(1);
-  
-  // Cart State
+
+  // Cart State (source of truth is the backend)
   cartItems = signal<CartItem[]>([]);
-  
+
+  // Auth State
+  currentUser = signal<AuthUser | null>(null);
+
+  // Forms (plain objects for ngModel two-way binding)
+  authForm = { name: '', email: '', password: '' };
+  checkoutForm = { email: '', firstName: '', lastName: '', address: '', city: '', postalCode: '' };
+
   // Toast State
   toasts = signal<{id: number, message: string}[]>([]);
   private toastIdCounter = 0;
-  
+
   cartTotal = computed(() => {
     return this.cartItems().reduce((total, item) => total + (item.product.price * item.quantity), 0);
   });
-  
+
   cartItemCount = computed(() => {
     return this.cartItems().reduce((count, item) => count + item.quantity, 0);
   });
+
+  constructor() {
+    // El backend PHP no está disponible durante el prerenderizado SSR:
+    // los datos dinámicos se cargan solo en el navegador tras la hidratación.
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.api.getCategories().subscribe(categories => this.categories.set(categories));
+    this.api.getProducts().subscribe(products => this.allProducts.set(products));
+    this.api.getCart().subscribe(items => this.cartItems.set(items));
+    this.api.me().subscribe(user => this.currentUser.set(user));
+  }
 
   // Actions
   goToCheckout() {
@@ -107,6 +133,54 @@ export class App {
 
   toggleMobileMenu() {
     this.isMobileMenuOpen.update(v => !v);
+  }
+
+  // Account / Auth Actions
+  onAccountClick() {
+    if (this.currentUser()) {
+      this.logout();
+    } else {
+      this.openAuthModal();
+    }
+  }
+
+  openAuthModal(view: 'login' | 'register' = 'login') {
+    this.authView.set(view);
+    this.authError.set(null);
+    this.authForm = { name: '', email: '', password: '' };
+    this.isAuthModalOpen.set(true);
+  }
+
+  closeAuthModal() {
+    this.isAuthModalOpen.set(false);
+  }
+
+  submitAuth() {
+    this.authError.set(null);
+    const { name, email, password } = this.authForm;
+
+    const request$ = this.authView() === 'register'
+      ? this.api.register(name, email, password)
+      : this.api.login(email, password);
+
+    request$.subscribe({
+      next: (user) => {
+        this.currentUser.set(user);
+        this.isAuthModalOpen.set(false);
+        this.api.getCart().subscribe(items => this.cartItems.set(items));
+        this.showToast(`Bienvenido, ${user.name}`);
+      },
+      error: (err) => {
+        this.authError.set(err?.error?.error ?? 'No se pudo completar la operación.');
+      },
+    });
+  }
+
+  logout() {
+    this.api.logout().subscribe(() => {
+      this.currentUser.set(null);
+      this.showToast('Sesión cerrada.');
+    });
   }
 
   // Quick View Actions
@@ -136,29 +210,24 @@ export class App {
   addToCartFromQuickView() {
     const product = this.selectedProduct();
     if (!product) return;
-    
-    this.cartItems.update(items => {
-      const existingItemIndex = items.findIndex(
-        i => i.product.id === product.id && 
-             i.selectedSize === this.quickViewSize() && 
-             i.selectedColor === this.quickViewColor()
-      );
-      
-      if (existingItemIndex > -1) {
-        const newItems = [...items];
-        newItems[existingItemIndex].quantity += this.quickViewQuantity();
-        return newItems;
-      }
-      return [...items, { 
-        product, 
-        quantity: this.quickViewQuantity(), 
-        selectedSize: this.quickViewSize(), 
-        selectedColor: this.quickViewColor() 
-      }];
+
+    const variant = product.variants.find(
+      v => v.size === this.quickViewSize() && v.color === this.quickViewColor()
+    );
+
+    if (!variant) {
+      this.showToast('Esa combinación de talla y color no está disponible.');
+      return;
+    }
+
+    this.api.addCartItem(product.id, variant.id, this.quickViewQuantity()).subscribe({
+      next: (items) => {
+        this.cartItems.set(items);
+        this.showToast(`${product.name} agregado al carrito`);
+        this.closeQuickView();
+      },
+      error: () => this.showToast('No se pudo agregar el producto al carrito.'),
     });
-    
-    this.showToast(`${product.name} added to cart`);
-    this.closeQuickView();
   }
 
   toggleFilterMobile() {
@@ -206,24 +275,19 @@ export class App {
   }
 
   addToCart(product: Product) {
-    const defaultSize = product.sizes.length > 0 ? product.sizes[0] : '';
-    const defaultColor = product.colors.length > 0 ? product.colors[0] : '';
-    
-    this.cartItems.update(items => {
-      const existingItemIndex = items.findIndex(
-        i => i.product.id === product.id && i.selectedSize === defaultSize && i.selectedColor === defaultColor
-      );
+    const variant = product.variants[0];
+    if (!variant) {
+      this.showToast('Este producto no tiene variantes disponibles.');
+      return;
+    }
 
-      if (existingItemIndex > -1) {
-        const newItems = [...items];
-        newItems[existingItemIndex].quantity += 1;
-        return newItems;
-      }
-
-      return [...items, { product, quantity: 1, selectedSize: defaultSize, selectedColor: defaultColor }];
+    this.api.addCartItem(product.id, variant.id, 1).subscribe({
+      next: (items) => {
+        this.cartItems.set(items);
+        this.showToast(`${product.name} agregado al carrito`);
+      },
+      error: () => this.showToast('No se pudo agregar el producto al carrito.'),
     });
-    
-    this.showToast(`${product.name} added to cart`);
   }
 
   showToast(message: string) {
@@ -239,23 +303,54 @@ export class App {
   }
 
   removeFromCart(index: number) {
-    this.cartItems.update(items => {
-      const newItems = [...items];
-      newItems.splice(index, 1);
-      return newItems;
+    const item = this.cartItems()[index];
+    if (!item) return;
+
+    this.api.removeCartItem(item.id).subscribe({
+      next: (items) => this.cartItems.set(items),
+      error: () => this.showToast('No se pudo quitar el producto del carrito.'),
     });
   }
 
   updateQuantity(index: number, delta: number) {
-    this.cartItems.update(items => {
-      const newItems = [...items];
-      const newQuantity = newItems[index].quantity + delta;
-      
-      if (newQuantity > 0) {
-        newItems[index].quantity = newQuantity;
-      }
-      return newItems;
+    const item = this.cartItems()[index];
+    if (!item) return;
+
+    const newQuantity = item.quantity + delta;
+    if (newQuantity < 1) return;
+
+    this.api.updateCartItem(item.id, newQuantity).subscribe({
+      next: (items) => this.cartItems.set(items),
+      error: () => this.showToast('No se pudo actualizar la cantidad.'),
+    });
+  }
+
+  placeOrder() {
+    if (!this.currentUser()) {
+      this.showToast('Iniciá sesión para completar la compra.');
+      this.openAuthModal('login');
+      return;
+    }
+
+    const { firstName, lastName, address, city, postalCode } = this.checkoutForm;
+    const shippingAddress = `${firstName} ${lastName}, ${address}, ${city}, ${postalCode}`.trim();
+
+    if (!address || !city) {
+      this.showToast('Completá la dirección de envío.');
+      return;
+    }
+
+    this.api.createOrder(shippingAddress).subscribe({
+      next: (order) => {
+        this.api.payOrder(order.id).subscribe(() => {
+          this.cartItems.set([]);
+          this.showToast('¡Pedido creado con éxito!');
+          this.goToHome();
+        });
+      },
+      error: (err) => {
+        this.showToast(err?.error?.error ?? 'No se pudo completar el pedido.');
+      },
     });
   }
 }
-

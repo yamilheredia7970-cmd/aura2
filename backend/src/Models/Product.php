@@ -13,7 +13,8 @@ final class Product
      */
     public static function search(array $filters): array
     {
-        $sql = 'SELECT DISTINCT p.* FROM products p';
+        $sql = 'SELECT DISTINCT p.*, c.name AS category_name FROM products p
+                LEFT JOIN categories c ON c.id = p.category_id';
         $conditions = [];
         $params = [];
 
@@ -23,7 +24,6 @@ final class Product
         }
 
         if (!empty($filters['category'])) {
-            $sql .= ' JOIN categories c ON c.id = p.category_id';
             $conditions[] = 'c.name = :category';
             $params['category'] = $filters['category'];
         }
@@ -58,7 +58,11 @@ final class Product
 
     public static function find(int $id): ?array
     {
-        $stmt = Connection::get()->prepare('SELECT * FROM products WHERE id = :id');
+        $stmt = Connection::get()->prepare(
+            'SELECT p.*, c.name AS category_name FROM products p
+             LEFT JOIN categories c ON c.id = p.category_id
+             WHERE p.id = :id'
+        );
         $stmt->execute(['id' => $id]);
         $product = $stmt->fetch();
 
