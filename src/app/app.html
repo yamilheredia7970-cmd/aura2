@@ -1,0 +1,906 @@
+<!-- Top Announcement Bar -->
+<div class="bg-brand-900 text-white text-xs md:text-sm text-center py-2 px-4 font-medium tracking-wide">
+  Free shipping on all orders over $150 | Extended returns
+</div>
+
+<!-- Navigation -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Mobile menu button -->
+      <div class="flex items-center md:hidden">
+        <button (click)="toggleMobileMenu()" class="text-gray-500 hover:text-brand-900 p-2">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center justify-center flex-1 md:flex-none">
+        <a href="#" (click)="goToHome($event)" class="font-serif text-3xl tracking-tight text-brand-900 font-semibold">
+          AURA<span class="text-brand-500">.</span>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8 lg:space-x-12 absolute left-1/2 transform -translate-x-1/2">
+        @for (cat of categories; track cat.id) {
+          @if ($index < 4) {
+            <a href="#" class="text-sm font-medium text-gray-700 hover:text-brand-500 transition-colors uppercase tracking-widest">{{cat.name}}</a>
+          }
+        }
+      </nav>
+
+      <!-- Right Side Icons -->
+      <div class="flex items-center space-x-4 md:space-x-6">
+        <button class="text-gray-500 hover:text-brand-900 transition-colors hidden sm:block">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button class="text-gray-500 hover:text-brand-900 transition-colors hidden sm:block">
+          <mat-icon>favorite_border</mat-icon>
+        </button>
+        <button class="text-gray-500 hover:text-brand-900 transition-colors hidden sm:block">
+          <mat-icon>person_outline</mat-icon>
+        </button>
+        <button (click)="toggleCart()" class="text-gray-500 hover:text-brand-900 transition-colors relative flex items-center">
+          <mat-icon>shopping_bag</mat-icon>
+          @if (cartItemCount() > 0) {
+            <span class="absolute -top-1.5 -right-2.5 bg-brand-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+              {{ cartItemCount() }}
+            </span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+      <!-- Mobile Menu Dropdown -->
+  @if (isMobileMenuOpen()) {
+    <div class="md:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-4 shadow-lg absolute w-full">
+      <div class="relative w-full mb-6">
+        <input type="text" placeholder="Search products..." class="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-brand-500">
+        <mat-icon class="absolute left-3 top-2.5 text-gray-400 text-sm">search</mat-icon>
+      </div>
+      @for (cat of categories; track cat.id) {
+        <a href="#" class="block text-base font-medium text-gray-800 hover:text-brand-500 py-2 border-b border-gray-50">{{cat.name}}</a>
+      }
+      <div class="flex items-center space-x-6 pt-4">
+        <a href="#" class="flex items-center text-sm text-gray-600">
+          <mat-icon class="mr-2 text-gray-400">person_outline</mat-icon> My Account
+        </a>
+        <a href="#" class="flex items-center text-sm text-gray-600">
+          <mat-icon class="mr-2 text-gray-400">favorite_border</mat-icon> Favorites
+        </a>
+      </div>
+    </div>
+  }
+</header>
+
+<main>
+  @if (currentView() === 'home') {
+  <!-- Hero Section -->
+  <section class="relative h-[80vh] md:h-[85vh] overflow-hidden bg-gray-900">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000" alt="Nueva Colección" class="absolute inset-0 w-full h-full object-cover object-top opacity-80" referrerpolicy="no-referrer" />
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/20 to-transparent"></div>
+    
+    <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-24 md:pb-32">
+      <div class="max-w-2xl">
+        <span class="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-sm text-white text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
+          Autumn / Winter Collection
+        </span>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-tight mb-6">
+          Effortless <br/>Elegance.
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-lg font-light leading-relaxed">
+          Discover timeless silhouettes and premium textures designed to elevate your everyday style.
+        </p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <button class="bg-white text-brand-900 px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-gray-100 transition-colors flex items-center justify-center">
+            Shop Now
+          </button>
+          <button class="bg-transparent border border-white text-white px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-white/10 transition-colors flex items-center justify-center">
+            View Collection
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Banner -->
+  <section class="border-b border-gray-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="flex flex-col items-center text-center space-y-3">
+          <mat-icon class="text-brand-500 text-3xl">local_shipping</mat-icon>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Free Shipping</h3>
+            <p class="text-xs text-gray-500 mt-1">On orders over $150</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center text-center space-y-3">
+          <mat-icon class="text-brand-500 text-3xl">security</mat-icon>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Secure Payment</h3>
+            <p class="text-xs text-gray-500 mt-1">100% protected transactions</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center text-center space-y-3">
+          <mat-icon class="text-brand-500 text-3xl">autorenew</mat-icon>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Free Returns</h3>
+            <p class="text-xs text-gray-500 mt-1">Up to 30 days to return</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center text-center space-y-3">
+          <mat-icon class="text-brand-500 text-3xl">support_agent</mat-icon>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">24/7 Support</h3>
+            <p class="text-xs text-gray-500 mt-1">Personalized assistance</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop by Category -->
+  <section class="py-20 bg-brand-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-10">
+        <h2 class="text-3xl font-serif text-brand-900">Categories</h2>
+        <a href="#" class="text-sm font-medium text-brand-500 hover:text-brand-900 flex items-center transition-colors uppercase tracking-widest">
+          View All <mat-icon class="text-sm ml-1">arrow_forward</mat-icon>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        @for (category of categories; track category.id) {
+          <a href="#" class="group block relative overflow-hidden rounded-lg aspect-[4/5]">
+            <img [src]="category.imageUrl" [alt]="category.name" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" referrerpolicy="no-referrer" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+            <div class="absolute bottom-4 left-4 right-4">
+              <h3 class="text-white font-medium text-lg">{{category.name}}</h3>
+            </div>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotional Banner Section -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative rounded-2xl overflow-hidden bg-brand-900">
+        <div class="absolute inset-0 opacity-40">
+           <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=2000" alt="Sale Texture" class="w-full h-full object-cover grayscale mix-blend-overlay" referrerpolicy="no-referrer">
+        </div>
+        <div class="relative px-8 py-16 md:px-16 md:py-20 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+          <div class="mb-8 md:mb-0 max-w-xl">
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">Mid-Season Sale</h2>
+            <p class="text-brand-400 text-lg mb-0">Enjoy up to <span class="text-white font-semibold">40% off</span> on selected items. Limited time only.</p>
+          </div>
+          <button class="bg-brand-500 text-white px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-400 transition-colors whitespace-nowrap">
+            Discover Deals
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Catalog Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b border-gray-100 pb-4 gap-4">
+        <h2 class="text-3xl font-serif text-brand-900">Catalog</h2>
+        
+        <!-- Mobile Filter Toggle -->
+        <button (click)="toggleFilterMobile()" class="lg:hidden flex items-center text-sm font-medium text-brand-900 border border-gray-200 px-4 py-2 rounded-sm hover:bg-gray-50 transition-colors">
+          <mat-icon class="text-[18px] mr-2">filter_list</mat-icon> Filters
+        </button>
+
+        <!-- Categories Tabs -->
+        <div class="flex space-x-6 overflow-x-auto w-full md:w-auto scrollbar-hide pb-2 md:pb-0">
+          <button (click)="setCategory('All')" [class]="selectedCategory() === 'All' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">All</button>
+          <button (click)="setCategory('New Arrivals')" [class]="selectedCategory() === 'New Arrivals' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">New Arrivals</button>
+          @for (cat of categories; track cat.id) {
+            <button (click)="setCategory(cat.name)" [class]="selectedCategory() === cat.name ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">{{cat.name}}</button>
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8">
+        
+        <!-- Sidebar Filters -->
+        <aside [class.hidden]="!isFilterOpen()" class="lg:block w-full lg:w-64 flex-shrink-0 space-y-10">
+          
+          <!-- Price Filter -->
+          <div>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Max Price</h3>
+            <div class="flex justify-between text-sm text-gray-600 mb-2">
+              <span>$0</span>
+              <span class="font-medium text-brand-900">{{maxPrice() | currency}}</span>
+            </div>
+            <input type="range" min="0" max="300" [value]="maxPrice()" (input)="updateMaxPrice($event)" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-900">
+          </div>
+
+          <!-- Sizes Filter -->
+          <div>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Sizes</h3>
+            <div class="flex flex-wrap gap-2">
+              @for (size of availableSizes(); track size) {
+                <button 
+                  (click)="toggleSize(size)"
+                  [class]="selectedSizes().has(size) ? 'bg-brand-900 text-white border-brand-900' : 'bg-white text-gray-700 border-gray-200 hover:border-brand-900'"
+                  class="min-w-[2.5rem] h-10 px-2 border rounded-sm text-sm font-medium transition-colors focus:outline-none">
+                  {{size}}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Colors Filter -->
+          <div>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Colors</h3>
+            <div class="flex flex-wrap gap-3">
+              @for (color of availableColors(); track color) {
+                <button 
+                  (click)="toggleColor(color)"
+                  [style.background-color]="color"
+                  [class.ring-2]="selectedColors().has(color)"
+                  [class.ring-offset-2]="selectedColors().has(color)"
+                  class="w-8 h-8 rounded-full border border-gray-300 shadow-sm transition-all focus:outline-none ring-brand-900 hover:scale-110">
+                </button>
+              }
+            </div>
+          </div>
+          
+          @if (selectedSizes().size > 0 || selectedColors().size > 0 || maxPrice() < 300 || selectedCategory() !== 'All') {
+            <div class="pt-4 border-t border-gray-100">
+              <button (click)="clearFilters()" class="text-sm text-accent-red font-medium hover:underline w-full text-left flex items-center">
+                <mat-icon class="text-[16px] mr-1">clear</mat-icon> Clear all filters
+              </button>
+            </div>
+          }
+          
+        </aside>
+
+        <!-- Product Grid -->
+        <div class="flex-1">
+          @if (filteredProducts().length === 0) {
+            <div class="text-center py-20 bg-gray-50 rounded-sm border border-gray-100">
+              <mat-icon class="text-gray-400 text-5xl mb-4">search_off</mat-icon>
+              <h3 class="text-lg font-medium text-brand-900 mb-2">No products found</h3>
+              <p class="text-gray-500 mb-6 max-w-md mx-auto">There are no items matching your selected filters. Try adjusting the price, color, or size.</p>
+              <button (click)="clearFilters()" class="border border-brand-900 text-brand-900 px-6 py-2.5 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-900 hover:text-white transition-colors">
+                Clear Filters
+              </button>
+            </div>
+          } @else {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12">
+              @for (product of filteredProducts(); track product.id) {
+          <div class="group flex flex-col">
+            <!-- Product Image -->
+            <div class="relative aspect-[3/4] mb-4 bg-gray-100 overflow-hidden rounded-sm">
+              <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" referrerpolicy="no-referrer" />
+              
+              <!-- Badges and Favorite -->
+              <div class="absolute top-3 left-3 flex flex-col gap-2">
+                @if (product.discount) {
+                  <span class="bg-accent-red text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider rounded-sm">
+                    -{{product.discount}}%
+                  </span>
+                }
+                @if (product.isNew) {
+                  <span class="bg-white text-brand-900 text-[10px] font-bold px-2 py-1 uppercase tracking-wider rounded-sm shadow-sm">
+                    New
+                  </span>
+                }
+              </div>
+              <button class="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-accent-red transition-colors shadow-sm opacity-0 group-hover:opacity-100">
+                <mat-icon class="text-[18px]">favorite_border</mat-icon>
+              </button>
+
+              <!-- Quick Actions overlay on hover -->
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out flex justify-center space-x-2">
+                <button (click)="addToCart(product)" class="bg-white text-brand-900 flex-1 py-2.5 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors rounded-sm flex items-center justify-center shadow-sm">
+                  <mat-icon class="text-[18px] mr-1">add_shopping_cart</mat-icon> Add
+                </button>
+                <button (click)="openQuickView(product)" class="bg-white/90 text-brand-900 flex-1 py-2.5 text-xs sm:text-sm font-medium hover:bg-white transition-colors rounded-sm flex items-center justify-center shadow-sm">
+                  <mat-icon class="text-[18px] mr-1">visibility</mat-icon> View
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="flex flex-col flex-1">
+              <div class="flex justify-between items-start mb-1">
+                <p class="text-xs text-gray-500 uppercase tracking-wide">{{product.category}}</p>
+                <div class="flex items-center text-xs text-gray-500">
+                  <mat-icon class="text-[14px] text-brand-500 mr-0.5">star</mat-icon>
+                  <span>{{product.rating}} ({{product.reviewCount}})</span>
+                </div>
+              </div>
+              <h3 class="text-base font-medium text-brand-900 mb-1 leading-snug">
+                <a href="#">{{product.name}}</a>
+              </h3>
+              <div class="mt-auto flex items-center space-x-2">
+                <span class="text-sm font-semibold text-brand-900">{{product.price | currency}}</span>
+                @if (product.oldPrice) {
+                  <span class="text-xs text-gray-400 line-through">{{product.oldPrice | currency}}</span>
+                }
+              </div>
+              <!-- Colors dots -->
+              @if (product.colors.length > 0) {
+                <div class="flex space-x-1.5 mt-3">
+                  @for (color of product.colors; track color) {
+                    <span class="w-3 h-3 rounded-full border border-gray-300 shadow-sm" [style.background-color]="color"></span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+      
+      @if (filteredProducts().length > 12) {
+        <div class="mt-16 text-center border-t border-gray-100 pt-12">
+          <button class="border border-brand-900 text-brand-900 px-8 py-3 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-900 hover:text-white transition-colors inline-block">
+            Load More
+          </button>
+        </div>
+      }
+    }
+  </div>
+</div>
+    </div>
+  </section>
+
+  <!-- Lookbook / Inspiration -->
+  <section class="py-0 bg-brand-900 flex flex-col md:flex-row">
+    <div class="w-full md:w-1/2 min-h-[50vh] bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200');">
+    </div>
+    <div class="w-full md:w-1/2 p-12 md:p-20 flex flex-col justify-center text-white">
+      <span class="text-brand-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Editorial</span>
+      <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Everyday<br/>Minimalism</h2>
+      <p class="text-gray-300 mb-10 max-w-md font-light text-lg">
+        Our new collection focuses on essential pieces designed to combine seamlessly, creating a versatile and timeless wardrobe.
+      </p>
+      <a href="#" class="inline-flex items-center text-sm font-medium tracking-widest uppercase border-b border-brand-400 pb-1 w-max hover:text-brand-400 transition-colors">
+        Explore Lookbook <mat-icon class="ml-2 text-sm">arrow_forward</mat-icon>
+      </a>
+    </div>
+  </section>
+
+  <!-- Best Sellers -->
+  <section class="py-20 bg-brand-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-serif text-brand-900 text-center mb-12">Recommended</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (product of bestSellers(); track product.id) {
+          <div class="bg-white p-4 rounded-sm shadow-sm group">
+            <div class="relative aspect-[3/4] mb-4 overflow-hidden rounded-sm bg-gray-50">
+               <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerpolicy="no-referrer" />
+               <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+               
+               <button class="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-accent-red transition-colors shadow-sm opacity-0 group-hover:opacity-100">
+                <mat-icon class="text-[18px]">favorite_border</mat-icon>
+               </button>
+
+               <div class="absolute bottom-4 left-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 duration-300">
+                 <button (click)="addToCart(product)" class="bg-white text-brand-900 flex-1 py-2.5 text-xs font-medium hover:bg-gray-100 transition-colors rounded-sm flex items-center justify-center shadow-sm">
+                   <mat-icon class="text-[18px] mr-1">add_shopping_cart</mat-icon> Añadir
+                 </button>
+                 <button (click)="openQuickView(product)" class="bg-white/90 text-brand-900 flex-1 py-2.5 text-xs font-medium hover:bg-white transition-colors rounded-sm flex items-center justify-center shadow-sm">
+                   <mat-icon class="text-[18px] mr-1">visibility</mat-icon> Ver
+                 </button>
+               </div>
+            </div>
+            <div class="text-center">
+              <h3 class="text-sm font-medium text-brand-900 mb-1 line-clamp-1">{{product.name}}</h3>
+              <p class="text-sm font-semibold text-brand-500">{{product.price | currency}}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-serif text-brand-900 mb-4">What our customers say</h2>
+        <div class="flex justify-center space-x-1">
+           <mat-icon class="text-brand-500">star</mat-icon>
+           <mat-icon class="text-brand-500">star</mat-icon>
+           <mat-icon class="text-brand-500">star</mat-icon>
+           <mat-icon class="text-brand-500">star</mat-icon>
+           <mat-icon class="text-brand-500">star</mat-icon>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Based on over 2,500 verified reviews</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @for (testimonial of testimonials; track testimonial.id) {
+          <div class="bg-brand-100/50 p-8 rounded-lg relative">
+            <mat-icon class="absolute top-6 left-6 text-brand-500/20 text-4xl">format_quote</mat-icon>
+            <p class="text-gray-700 italic mb-6 relative z-10 font-serif text-lg leading-relaxed">
+              "{{testimonial.content}}"
+            </p>
+            <div class="flex items-center">
+              <img [src]="testimonial.imageUrl" [alt]="testimonial.name" class="w-12 h-12 rounded-full object-cover mr-4 shadow-sm border border-white" referrerpolicy="no-referrer" />
+              <div>
+                <p class="font-semibold text-brand-900 text-sm">{{testimonial.name}}</p>
+                <p class="text-xs text-brand-500 flex items-center">
+                  <mat-icon class="text-[12px] mr-1">verified</mat-icon> {{testimonial.role}}
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-24 bg-brand-900 border-t border-brand-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <mat-icon class="text-brand-500 text-4xl mb-4">mark_email_read</mat-icon>
+      <h2 class="text-3xl font-serif text-white mb-4">Join our club</h2>
+      <p class="text-gray-300 mb-8 font-light text-lg">Suscríbete y recibe acceso anticipado a nuevas colecciones, ventas exclusivas y un 15% de descuento en tu primera compra.</p>
+      
+      <form class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+        <input type="email" placeholder="Your email address" class="flex-1 bg-brand-800 border border-brand-800 text-white rounded-none py-3.5 px-4 focus:outline-none focus:border-brand-500 placeholder-gray-400" required>
+        <button type="submit" class="bg-brand-500 text-white px-8 py-3.5 rounded-none font-medium tracking-widest uppercase hover:bg-brand-400 transition-colors whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+  }
+  
+  @if (currentView() === 'checkout') {
+    <section class="py-12 bg-gray-50 min-h-screen">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumbs -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-serif text-brand-900 mb-2">Checkout</h1>
+          <p class="text-sm text-gray-500">
+            <a href="#" (click)="goToHome($event)" class="hover:text-brand-900 transition-colors">Home</a> 
+            <span class="mx-2">/</span> 
+            <span class="text-brand-900">Checkout</span>
+          </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+          <!-- Left Column (Forms) -->
+          <div class="flex-1 space-y-8">
+            <!-- Contact -->
+            <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
+              <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
+                <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">1</span>
+                Contact Information
+              </h2>
+              <div class="space-y-4">
+                <div>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Email Address</span>
+                  <input type="email" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" placeholder="example@email.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping -->
+            <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
+              <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
+                <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">2</span>
+                Shipping Address
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">First Name</span>
+                  <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Last Name</span>
+                  <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
+                </div>
+                <div class="md:col-span-2">
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Address</span>
+                  <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="Street and number">
+                </div>
+                <div>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">City</span>
+                  <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Postal Code</span>
+                  <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment -->
+            <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
+              <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
+                <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">3</span>
+                Payment Method
+              </h2>
+              <div class="space-y-4">
+                <div class="border border-gray-300 rounded-sm p-4 flex items-center bg-gray-50">
+                  <input type="radio" checked name="payment" class="h-4 w-4 text-brand-900 focus:ring-brand-900 border-gray-300">
+                  <span class="ml-3 flex items-center">
+                    <mat-icon class="text-gray-500 mr-2">credit_card</mat-icon>
+                    <span class="text-sm font-medium text-gray-900">Credit / Debit Card</span>
+                  </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div class="md:col-span-2">
+                    <span class="block text-sm font-medium text-gray-700 mb-1">Card Number</span>
+                    <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="0000 0000 0000 0000">
+                  </div>
+                  <div>
+                    <span class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</span>
+                    <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="MM/YY">
+                  </div>
+                  <div>
+                    <span class="block text-sm font-medium text-gray-700 mb-1">CVV</span>
+                    <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="123">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (Summary) -->
+          <div class="lg:w-96">
+            <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100 sticky top-28">
+              <h2 class="text-lg font-medium text-brand-900 mb-6">Order Summary</h2>
+              
+              <div class="space-y-4 mb-6 max-h-64 overflow-y-auto pr-2">
+                @for (item of cartItems(); track item.product.id) {
+                  <div class="flex items-center gap-4">
+                    <div class="w-16 h-20 bg-gray-100 flex-shrink-0">
+                      <img [src]="item.product.imageUrl" [alt]="item.product.name" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
+                    </div>
+                    <div class="flex-1">
+                      <h4 class="text-sm font-medium text-brand-900 line-clamp-1">{{item.product.name}}</h4>
+                      <p class="text-xs text-gray-500 mb-1">
+                        @if (item.selectedSize) { Size: {{item.selectedSize}} }
+                        @if (item.selectedSize && item.selectedColor) { | }
+                        @if (item.selectedColor) { Color: {{item.selectedColor}} }
+                      </p>
+                      <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Qty: {{item.quantity}}</span>
+                        <span class="text-sm font-medium text-brand-900">{{item.product.price * item.quantity | currency}}</span>
+                      </div>
+                    </div>
+                  </div>
+                }
+                
+                @if (cartItems().length === 0) {
+                  <p class="text-sm text-gray-500 text-center py-4">Your cart is empty.</p>
+                }
+              </div>
+
+              <div class="border-t border-gray-100 pt-4 space-y-3">
+                <div class="flex justify-between text-sm text-gray-600">
+                  <span>Subtotal</span>
+                  <span>{{cartTotal() | currency}}</span>
+                </div>
+                <div class="flex justify-between text-sm text-gray-600">
+                  <span>Shipping</span>
+                  <span class="text-brand-500 font-medium">Free</span>
+                </div>
+                <div class="flex justify-between text-lg font-serif font-semibold text-brand-900 pt-2 border-t border-gray-100">
+                  <span>Total</span>
+                  <span>{{cartTotal() | currency}}</span>
+                </div>
+              </div>
+
+              <button class="w-full mt-8 bg-brand-900 text-white py-4 rounded-none font-medium tracking-widest uppercase hover:bg-brand-800 transition-colors flex justify-center items-center group">
+                <mat-icon class="mr-2 group-hover:scale-110 transition-transform">lock</mat-icon>
+                Pay & Complete Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+      
+      <!-- Brand info -->
+      <div class="lg:col-span-2">
+        <a href="#" class="font-serif text-2xl tracking-tight text-brand-900 font-semibold mb-6 block">
+          AURA<span class="text-brand-500">.</span>
+        </a>
+        <p class="text-gray-500 text-sm mb-6 max-w-sm leading-relaxed">
+          We design timeless garments with premium materials for those who value quality, elegance, and simplicity in their everyday life.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-900 hover:bg-brand-900 hover:text-white transition-colors">
+            <span class="font-serif italic font-bold">In</span>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-900 hover:bg-brand-900 hover:text-white transition-colors">
+            <span class="font-serif italic font-bold">Fb</span>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-900 hover:bg-brand-900 hover:text-white transition-colors">
+            <span class="font-serif italic font-bold">Pt</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Shop</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">New Arrivals</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Men</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Women</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Accessories</a></li>
+          <li><a href="#" class="text-accent-red font-medium hover:underline text-sm transition-colors">Sale / Offers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Help</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">FAQ</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Shipping & Delivery</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Returns & Exchanges</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Size Guide</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Legal</h4>
+        <ul class="space-y-3">
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Terms & Conditions</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <p class="text-xs text-gray-400">
+        &copy; 2026 Aura Moda. All rights reserved.
+      </p>
+      <div class="flex items-center space-x-3 opacity-60">
+        <div class="h-6 w-10 bg-gray-200 rounded border border-gray-300"></div>
+        <div class="h-6 w-10 bg-gray-200 rounded border border-gray-300"></div>
+        <div class="h-6 w-10 bg-gray-200 rounded border border-gray-300"></div>
+        <div class="h-6 w-10 bg-gray-200 rounded border border-gray-300"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Shopping Cart Sidebar Overlay -->
+@if (isCartOpen()) {
+  <div class="fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <!-- Background overlay -->
+    <div class="absolute inset-0 bg-brand-900/60 backdrop-blur-sm transition-opacity" (click)="toggleCart()" (keyup.enter)="toggleCart()" tabindex="0" role="button"></div>
+
+    <div class="fixed inset-y-0 right-0 max-w-full flex">
+      <div class="w-screen max-w-md transform transition ease-in-out duration-500">
+        <div class="h-full flex flex-col bg-white shadow-xl">
+          
+          <!-- Cart Header -->
+          <div class="flex-1 overflow-y-auto scrollbar-hide">
+            <div class="flex items-start justify-between px-6 py-6 border-b border-gray-100">
+              <h2 class="text-xl font-serif text-brand-900 flex items-center" id="slide-over-title">
+                <mat-icon class="mr-2">shopping_bag</mat-icon> Your Cart 
+                <span class="text-brand-500 text-base font-sans ml-2">({{cartItemCount()}})</span>
+              </h2>
+              <button (click)="toggleCart()" class="text-gray-400 hover:text-gray-500 p-1">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            <div class="px-6 py-6">
+              @if (cartItems().length === 0) {
+                <div class="text-center py-12 flex flex-col items-center">
+                  <div class="w-20 h-20 bg-brand-100 rounded-full flex items-center justify-center mb-6">
+                    <mat-icon class="text-brand-400 text-3xl">shopping_cart</mat-icon>
+                  </div>
+                  <p class="text-lg text-gray-500 font-medium mb-2">Your cart is empty</p>
+                  <p class="text-sm text-gray-400 mb-8">It looks like you haven't added anything yet.</p>
+                  <button (click)="toggleCart()" class="bg-brand-900 text-white px-8 py-3 font-medium text-sm tracking-widest uppercase hover:bg-brand-800 transition-colors rounded-sm">
+                    Explore Products
+                  </button>
+                </div>
+              } @else {
+                <div class="flow-root">
+                  <ul role="list" class="-my-6 divide-y divide-gray-100">
+                    @for (item of cartItems(); track $index) {
+                      <li class="py-6 flex">
+                        <div class="flex-shrink-0 w-24 h-32 border border-gray-100 rounded-sm overflow-hidden">
+                          <img [src]="item.product.imageUrl" [alt]="item.product.name" class="w-full h-full object-cover object-center" referrerpolicy="no-referrer">
+                        </div>
+
+                        <div class="ml-4 flex-1 flex flex-col justify-between">
+                          <div>
+                            <div class="flex justify-between text-base font-medium text-brand-900 mb-1">
+                              <h3 class="line-clamp-1 mr-2">{{item.product.name}}</h3>
+                              <p class="ml-4 flex-shrink-0">{{item.product.price | currency}}</p>
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500">
+                              @if(item.selectedColor) { Color: <span class="inline-block w-3 h-3 rounded-full border border-gray-300 ml-1 translate-y-0.5" [style.background-color]="item.selectedColor"></span> }
+                              @if(item.selectedSize) { <span class="mx-2">|</span> Size: {{item.selectedSize}} }
+                            </p>
+                          </div>
+                          <div class="flex items-center justify-between mt-4">
+                            <!-- Quantity selector -->
+                            <div class="flex items-center border border-gray-200 rounded-sm">
+                              <button (click)="updateQuantity($index, -1)" class="p-1 text-gray-600 hover:text-brand-900 hover:bg-gray-50 transition-colors">
+                                <mat-icon class="text-[16px]">remove</mat-icon>
+                              </button>
+                              <span class="px-3 text-sm font-medium text-brand-900 min-w-[2rem] text-center">{{item.quantity}}</span>
+                              <button (click)="updateQuantity($index, 1)" class="p-1 text-gray-600 hover:text-brand-900 hover:bg-gray-50 transition-colors">
+                                <mat-icon class="text-[16px]">add</mat-icon>
+                              </button>
+                            </div>
+                            <button (click)="removeFromCart($index)" class="text-sm font-medium text-accent-red hover:underline flex items-center">
+                              <mat-icon class="text-[16px] mr-1">delete_outline</mat-icon> Remove
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Cart Footer -->
+          @if (cartItems().length > 0) {
+            <div class="border-t border-gray-100 px-6 py-6 sm:px-6 bg-gray-50">
+              <div class="flex justify-between text-base font-medium text-brand-900 mb-4">
+                <p>Subtotal</p>
+                <p>{{cartTotal() | currency}}</p>
+              </div>
+              <p class="mt-0.5 text-sm text-gray-500 mb-6 font-light">Shipping and taxes calculated at checkout.</p>
+              <div class="mt-6">
+                <button (click)="goToCheckout()" class="w-full bg-brand-900 flex justify-center items-center px-6 py-4 border border-transparent rounded-sm shadow-sm text-sm font-medium tracking-widest uppercase text-white hover:bg-brand-800 transition-colors">
+                  Checkout <mat-icon class="ml-2 text-sm">lock</mat-icon>
+                </button>
+              </div>
+              <div class="mt-4 flex justify-center text-sm text-center text-gray-500">
+                <p>
+                  or <button type="button" (click)="toggleCart()" class="text-brand-900 font-medium hover:text-brand-500 underline ml-1">Continue shopping</button>
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Quick View Modal -->
+@if (selectedProduct()) {
+  <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 bg-brand-900/80 backdrop-blur-sm transition-opacity" (click)="closeQuickView()" (keyup.enter)="closeQuickView()" tabindex="0" role="button"></div>
+    <div class="relative w-full max-w-5xl bg-white rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-full">
+      <button (click)="closeQuickView()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-500 hover:text-brand-900 hover:bg-white transition-colors shadow-sm">
+        <mat-icon>close</mat-icon>
+      </button>
+      
+      <!-- Image Side -->
+      <div class="w-full md:w-1/2 min-h-[300px] md:min-h-0 bg-gray-100 relative">
+        <img [src]="selectedProduct()!.imageUrl" [alt]="selectedProduct()!.name" class="w-full h-full object-cover object-center absolute inset-0" referrerpolicy="no-referrer">
+        @if (selectedProduct()!.discount) {
+           <span class="absolute top-6 left-6 bg-accent-red text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider rounded-sm shadow-sm">
+             -{{selectedProduct()!.discount}}%
+           </span>
+        }
+      </div>
+
+      <!-- Details Side -->
+      <div class="w-full md:w-1/2 p-6 sm:p-10 overflow-y-auto max-h-[60vh] md:max-h-[80vh] flex flex-col">
+        <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">{{selectedProduct()!.category}}</p>
+        <h2 class="text-3xl font-serif text-brand-900 mb-4">{{selectedProduct()!.name}}</h2>
+        
+        <div class="flex items-center mb-6">
+          <div class="flex items-center text-brand-500">
+            <mat-icon class="text-[18px]">star</mat-icon>
+            <mat-icon class="text-[18px]">star</mat-icon>
+            <mat-icon class="text-[18px]">star</mat-icon>
+            <mat-icon class="text-[18px]">star</mat-icon>
+            <mat-icon class="text-[18px]">star_half</mat-icon>
+          </div>
+          <span class="ml-2 text-sm text-gray-500">(4.5/5.0) 24 reviews</span>
+        </div>
+
+        <div class="mb-6 flex items-baseline space-x-3">
+          <span class="text-2xl font-semibold text-brand-900">{{selectedProduct()!.price | currency}}</span>
+          @if (selectedProduct()!.oldPrice) {
+            <span class="text-lg text-gray-400 line-through">{{selectedProduct()!.oldPrice | currency}}</span>
+          }
+        </div>
+
+        <p class="text-gray-600 mb-8 leading-relaxed text-sm">
+          Discover the perfect balance between style and comfort. Designed with your everyday life in mind, this item will become an essential staple in your wardrobe.
+        </p>
+
+        <!-- Colors -->
+        @if (selectedProduct()!.colors.length > 0) {
+          <div class="mb-6">
+            <h4 class="text-sm font-medium text-brand-900 mb-3">Color</h4>
+            <div class="flex space-x-3">
+              @for (color of selectedProduct()!.colors; track color) {
+                <button 
+                  (click)="setQuickViewColor(color)"
+                  [style.background-color]="color" 
+                  [class.ring-2]="quickViewColor() === color"
+                  [class.ring-offset-2]="quickViewColor() === color"
+                  class="w-8 h-8 rounded-full border border-gray-300 shadow-sm focus:outline-none ring-brand-900 transition-all hover:scale-110">
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Sizes -->
+        @if (selectedProduct()!.sizes.length > 0) {
+          <div class="mb-8">
+            <h4 class="text-sm font-medium text-brand-900 mb-3">Size</h4>
+            <div class="flex flex-wrap gap-2">
+              @for (size of selectedProduct()!.sizes; track size) {
+                <button 
+                  (click)="setQuickViewSize(size)"
+                  [class]="quickViewSize() === size ? 'border-brand-900 bg-brand-900 text-white' : 'border-gray-300 text-gray-600 bg-white hover:border-brand-900'"
+                  class="w-12 h-12 flex items-center justify-center border rounded-sm text-sm font-medium transition-colors focus:outline-none">
+                  {{size}}
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Add to Cart Actions -->
+        <div class="mt-auto pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-4">
+          <div class="flex border border-gray-300 rounded-sm">
+            <button (click)="updateQuickViewQuantity(-1)" class="px-4 py-3 text-gray-500 hover:text-brand-900 focus:outline-none flex items-center justify-center">
+              <mat-icon class="text-[18px]">remove</mat-icon>
+            </button>
+            <span class="w-12 flex items-center justify-center font-medium text-brand-900 border-x border-gray-300">{{quickViewQuantity()}}</span>
+            <button (click)="updateQuickViewQuantity(1)" class="px-4 py-3 text-gray-500 hover:text-brand-900 focus:outline-none flex items-center justify-center">
+              <mat-icon class="text-[18px]">add</mat-icon>
+            </button>
+          </div>
+          
+          <button (click)="addToCartFromQuickView()" class="flex-1 bg-brand-900 text-white px-6 py-3 rounded-sm font-medium tracking-widest uppercase hover:bg-brand-800 transition-colors flex items-center justify-center">
+            <mat-icon class="mr-2 text-[20px]">add_shopping_cart</mat-icon> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Toast Container -->
+<div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
+  @for (toast of toasts(); track toast.id) {
+    <div class="bg-brand-900 text-white px-4 py-3 rounded-sm shadow-lg flex items-center justify-between min-w-[250px] pointer-events-auto transform transition-all duration-300 translate-y-0 opacity-100">
+      <div class="flex items-center text-sm font-medium">
+        <mat-icon class="text-brand-500 mr-2 text-[20px]">check_circle</mat-icon>
+        {{toast.message}}
+      </div>
+      <button (click)="removeToast(toast.id)" class="text-gray-400 hover:text-white ml-4 flex-shrink-0">
+        <mat-icon class="text-[18px]">close</mat-icon>
+      </button>
+    </div>
+  }
+</div>

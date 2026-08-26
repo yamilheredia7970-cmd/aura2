@@ -1,0 +1,6 @@
+{
+  "name": "Aura Moda - E-commerce",
+  "description": "Plantilla profesional de e-commerce para tienda de ropa, con diseño elegante, carrito de compras y catálogo completo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
