@@ -7,7 +7,7 @@ INSERT INTO products (category_id, name, short_description, price, old_price, ra
 VALUES ((SELECT id FROM categories WHERE name = 'Men'), 'Slim Chino Pants', 'Slim fit pants, ideal for the office or casual events.', 60.00, NULL, 4.4, 78, 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&q=80&w=600', 0, 0);
 
 INSERT INTO products (category_id, name, short_description, price, old_price, rating, review_count, image_url, is_new, is_bestseller)
-VALUES ((SELECT id FROM categories WHERE name = 'Women'), 'Chunky Knit Sweater', 'Warm and soft sweater, perfect for the winter season.', 75.00, 100.00, 4.9, 156, 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=600', 0, 0);
+VALUES ((SELECT id FROM categories WHERE name = 'Women'), 'Chunky Knit Sweater', 'Warm and soft sweater, perfect for the winter season.', 75.00, 100.00, 4.9, 156, 'https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&q=80&w=600', 0, 0);
 
 INSERT INTO products (category_id, name, short_description, price, old_price, rating, review_count, image_url, is_new, is_bestseller)
 VALUES ((SELECT id FROM categories WHERE name = 'Accessories'), 'Classic Sunglasses', 'UV protection with a timeless design.', 45.00, NULL, 4.5, 302, 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600', 0, 0);
@@ -31,7 +31,7 @@ INSERT INTO products (category_id, name, short_description, price, old_price, ra
 VALUES ((SELECT id FROM categories WHERE name = 'Men'), 'Slim Fit Two-Piece Suit', 'Modern and versatile formal set.', 280.00, NULL, 4.8, 42, 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&q=80&w=600', 1, 0);
 
 INSERT INTO products (category_id, name, short_description, price, old_price, rating, review_count, image_url, is_new, is_bestseller)
-VALUES ((SELECT id FROM categories WHERE name = 'Footwear'), 'Block Heel Sandals', 'Comfort and style for any event.', 85.00, NULL, 4.7, 120, 'https://images.unsplash.com/photo-1562183241-b937e95585b6?auto=format&fit=crop&q=80&w=600', 0, 0);
+VALUES ((SELECT id FROM categories WHERE name = 'Footwear'), 'Block Heel Sandals', 'Comfort and style for any event.', 85.00, NULL, 4.7, 120, 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&q=80&w=600', 0, 0);
 
 INSERT INTO product_variants (product_id, size, color, stock)
 SELECT id, v.size, v.color, v.stock FROM products,
