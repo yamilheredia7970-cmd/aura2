@@ -31,7 +31,7 @@ INSERT INTO products (category_id, name, short_description, price, old_price, ra
 VALUES ((SELECT id FROM categories WHERE name = 'Men'), 'Slim Fit Two-Piece Suit', 'Modern and versatile formal set.', 280.00, NULL, 4.8, 42, 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&q=80&w=600', 1, 0);
 
 INSERT INTO products (category_id, name, short_description, price, old_price, rating, review_count, image_url, is_new, is_bestseller)
-VALUES ((SELECT id FROM categories WHERE name = 'Footwear'), 'Block Heel Sandals', 'Comfort and style for any event.', 85.00, NULL, 4.7, 120, 'https://images.unsplash.com/photo-1518049362265-d5b2a6467637?auto=format&fit=crop&q=80&w=600', 0, 0);
+VALUES ((SELECT id FROM categories WHERE name = 'Footwear'), 'Block Heel Sandals', 'Comfort and style for any event.', 85.00, NULL, 4.7, 120, 'https://m.media-amazon.com/images/I/71TLQaa31QL._AC_SY575_.jpg', 0, 0);
 
 INSERT INTO product_variants (product_id, size, color, stock)
 SELECT id, v.size, v.color, v.stock FROM products,
