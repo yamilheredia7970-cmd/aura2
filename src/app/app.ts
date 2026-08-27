@@ -104,8 +104,8 @@ export class App {
   });
 
   constructor() {
-    // El backend PHP no está disponible durante el prerenderizado SSR:
-    // los datos dinámicos se cargan solo en el navegador tras la hidratación.
+    // The PHP backend isn't available during SSR prerendering:
+    // dynamic data is loaded in the browser only, after hydration.
     if (!isPlatformBrowser(this.platformId)) return;
 
     this.api.getCategories().subscribe(categories => this.categories.set(categories));
@@ -168,10 +168,10 @@ export class App {
         this.currentUser.set(user);
         this.isAuthModalOpen.set(false);
         this.api.getCart().subscribe(items => this.cartItems.set(items));
-        this.showToast(`Bienvenido, ${user.name}`);
+        this.showToast(`Welcome, ${user.name}`);
       },
       error: (err) => {
-        this.authError.set(err?.error?.error ?? 'No se pudo completar la operación.');
+        this.authError.set(err?.error?.error ?? 'Could not complete the operation.');
       },
     });
   }
@@ -179,7 +179,7 @@ export class App {
   logout() {
     this.api.logout().subscribe(() => {
       this.currentUser.set(null);
-      this.showToast('Sesión cerrada.');
+      this.showToast('Logged out.');
     });
   }
 
@@ -216,17 +216,17 @@ export class App {
     );
 
     if (!variant) {
-      this.showToast('Esa combinación de talla y color no está disponible.');
+      this.showToast('That size and color combination is not available.');
       return;
     }
 
     this.api.addCartItem(product.id, variant.id, this.quickViewQuantity()).subscribe({
       next: (items) => {
         this.cartItems.set(items);
-        this.showToast(`${product.name} agregado al carrito`);
+        this.showToast(`${product.name} added to cart`);
         this.closeQuickView();
       },
-      error: () => this.showToast('No se pudo agregar el producto al carrito.'),
+      error: () => this.showToast('Could not add the product to the cart.'),
     });
   }
 
@@ -277,16 +277,16 @@ export class App {
   addToCart(product: Product) {
     const variant = product.variants[0];
     if (!variant) {
-      this.showToast('Este producto no tiene variantes disponibles.');
+      this.showToast('This product has no available variants.');
       return;
     }
 
     this.api.addCartItem(product.id, variant.id, 1).subscribe({
       next: (items) => {
         this.cartItems.set(items);
-        this.showToast(`${product.name} agregado al carrito`);
+        this.showToast(`${product.name} added to cart`);
       },
-      error: () => this.showToast('No se pudo agregar el producto al carrito.'),
+      error: () => this.showToast('Could not add the product to the cart.'),
     });
   }
 
@@ -308,7 +308,7 @@ export class App {
 
     this.api.removeCartItem(item.id).subscribe({
       next: (items) => this.cartItems.set(items),
-      error: () => this.showToast('No se pudo quitar el producto del carrito.'),
+      error: () => this.showToast('Could not remove the product from the cart.'),
     });
   }
 
@@ -321,13 +321,13 @@ export class App {
 
     this.api.updateCartItem(item.id, newQuantity).subscribe({
       next: (items) => this.cartItems.set(items),
-      error: () => this.showToast('No se pudo actualizar la cantidad.'),
+      error: () => this.showToast('Could not update the quantity.'),
     });
   }
 
   placeOrder() {
     if (!this.currentUser()) {
-      this.showToast('Iniciá sesión para completar la compra.');
+      this.showToast('Log in to complete your purchase.');
       this.openAuthModal('login');
       return;
     }
@@ -336,7 +336,7 @@ export class App {
     const shippingAddress = `${firstName} ${lastName}, ${address}, ${city}, ${postalCode}`.trim();
 
     if (!address || !city) {
-      this.showToast('Completá la dirección de envío.');
+      this.showToast('Please complete the shipping address.');
       return;
     }
 
@@ -344,12 +344,12 @@ export class App {
       next: (order) => {
         this.api.payOrder(order.id).subscribe(() => {
           this.cartItems.set([]);
-          this.showToast('¡Pedido creado con éxito!');
+          this.showToast('Order placed successfully!');
           this.goToHome();
         });
       },
       error: (err) => {
-        this.showToast(err?.error?.error ?? 'No se pudo completar el pedido.');
+        this.showToast(err?.error?.error ?? 'Could not complete the order.');
       },
     });
   }

@@ -11,7 +11,7 @@ final class AuthMiddleware
     public static function requireAuth(): void
     {
         if (empty($_SESSION['user_id'])) {
-            Response::error('No autenticado.', 401);
+            Response::error('Not authenticated.', 401);
         }
     }
 

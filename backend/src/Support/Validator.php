@@ -26,7 +26,7 @@ final class Validator
                 [$name, $param] = array_pad(explode(':', $rule, 2), 2, null);
 
                 if ($name === 'required' && ($value === null || $value === '')) {
-                    $errors[$field][] = 'Este campo es obligatorio.';
+                    $errors[$field][] = 'This field is required.';
                     continue 2;
                 }
 
@@ -36,17 +36,17 @@ final class Validator
 
                 match ($name) {
                     'email' => filter_var($value, FILTER_VALIDATE_EMAIL) === false
-                        && $errors[$field][] = 'Email inválido.',
+                        && $errors[$field][] = 'Invalid email.',
                     'min' => mb_strlen((string) $value) < (int) $param
-                        && $errors[$field][] = "Debe tener al menos {$param} caracteres.",
+                        && $errors[$field][] = "Must be at least {$param} characters.",
                     'max' => mb_strlen((string) $value) > (int) $param
-                        && $errors[$field][] = "Debe tener como máximo {$param} caracteres.",
+                        && $errors[$field][] = "Must be at most {$param} characters.",
                     'numeric' => !is_numeric($value)
-                        && $errors[$field][] = 'Debe ser numérico.',
+                        && $errors[$field][] = 'Must be numeric.',
                     'int' => filter_var($value, FILTER_VALIDATE_INT) === false
-                        && $errors[$field][] = 'Debe ser un número entero.',
+                        && $errors[$field][] = 'Must be an integer.',
                     'in' => !in_array($value, explode(',', (string) $param), true)
-                        && $errors[$field][] = 'Valor no permitido.',
+                        && $errors[$field][] = 'Value not allowed.',
                     default => null,
                 };
             }

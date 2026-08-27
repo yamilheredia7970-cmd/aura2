@@ -58,6 +58,6 @@ final class Router
             }
         }
 
-        Response::error('Recurso no encontrado.', 404);
+        Response::error('Resource not found.', 404);
     }
 }

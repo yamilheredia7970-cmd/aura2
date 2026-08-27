@@ -10,10 +10,10 @@ use RuntimeException;
 final class Order
 {
     /**
-     * Crea una orden a partir del carrito, valida stock, descuenta inventario
-     * y vacía el carrito. Todo dentro de una transacción.
+     * Creates an order from the cart, validates stock, decrements inventory,
+     * and clears the cart. All within a single transaction.
      *
-     * @throws RuntimeException si algún ítem no tiene stock suficiente
+     * @throws RuntimeException if any item doesn't have enough stock
      */
     public static function createFromCart(int $cartId, int $userId, string $shippingAddress): array
     {
@@ -21,12 +21,12 @@ final class Order
         $items = Cart::items($cartId);
 
         if ($items === []) {
-            throw new RuntimeException('El carrito está vacío.');
+            throw new RuntimeException('The cart is empty.');
         }
 
         foreach ($items as $item) {
             if ($item['quantity'] > $item['stock']) {
-                throw new RuntimeException("Stock insuficiente para {$item['name']} ({$item['size']}/{$item['color']}).");
+                throw new RuntimeException("Insufficient stock for {$item['name']} ({$item['size']}/{$item['color']}).");
             }
         }
 

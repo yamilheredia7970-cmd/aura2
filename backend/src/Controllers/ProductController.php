@@ -26,7 +26,7 @@ final class ProductController
         $product = Product::find((int) $params['id']);
 
         if (!$product) {
-            Response::error('Producto no encontrado.', 404);
+            Response::error('Product not found.', 404);
         }
 
         Response::json(['product' => $product]);

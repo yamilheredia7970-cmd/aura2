@@ -34,7 +34,7 @@ final class Connection
             ]);
         } catch (PDOException $e) {
             error_log('DB connection failed: ' . $e->getMessage());
-            throw new PDOException('No se pudo conectar a la base de datos.');
+            throw new PDOException('Could not connect to the database.');
         }
 
         return self::$instance;

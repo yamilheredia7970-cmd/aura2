@@ -7,8 +7,8 @@ namespace Backend\Payments;
 use Backend\Database\Connection;
 
 /**
- * Gateway de ejemplo mientras no hay una integración real conectada.
- * Reemplazar por StripeGateway / MercadoPagoGateway implementando la misma interfaz.
+ * Placeholder gateway while no real integration is connected.
+ * Replace with StripeGateway / MercadoPagoGateway implementing the same interface.
  */
 final class StubGateway implements PaymentGatewayInterface
 {
@@ -31,7 +31,7 @@ final class StubGateway implements PaymentGatewayInterface
             'gateway' => 'stub',
             'status' => 'pending',
             'reference' => $reference,
-            'message' => 'Pago simulado: reemplazar StubGateway por una integración real (Stripe/MercadoPago).',
+            'message' => 'Simulated payment: replace StubGateway with a real integration (Stripe/MercadoPago).',
         ];
     }
 }

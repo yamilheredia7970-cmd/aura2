@@ -23,11 +23,11 @@ final class AuthController
                 'password' => 'required|min:8',
             ]);
         } catch (ValidationException $e) {
-            Response::error('Datos inválidos.', 422, $e->errors());
+            Response::error('Invalid data.', 422, $e->errors());
         }
 
         if (User::findByEmail($data['email'])) {
-            Response::error('Ese email ya está registrado.', 409);
+            Response::error('That email is already registered.', 409);
         }
 
         $userId = User::create($data['name'], $data['email'], $data['password']);
@@ -46,18 +46,18 @@ final class AuthController
                 'password' => 'required',
             ]);
         } catch (ValidationException $e) {
-            Response::error('Datos inválidos.', 422, $e->errors());
+            Response::error('Invalid data.', 422, $e->errors());
         }
 
         if (RateLimiter::tooManyAttempts($data['email'], $ip)) {
-            Response::error('Demasiados intentos. Probá de nuevo en unos minutos.', 429);
+            Response::error('Too many attempts. Please try again in a few minutes.', 429);
         }
 
         $user = User::findByEmail($data['email']);
 
         if (!$user || !password_verify($data['password'], $user['password_hash'])) {
             RateLimiter::recordFailedAttempt($data['email'], $ip);
-            Response::error('Credenciales inválidas.', 401);
+            Response::error('Invalid credentials.', 401);
         }
 
         RateLimiter::clearAttempts($data['email'], $ip);
@@ -70,14 +70,14 @@ final class AuthController
     {
         $_SESSION = [];
         session_destroy();
-        Response::json(['message' => 'Sesión cerrada.']);
+        Response::json(['message' => 'Logged out.']);
     }
 
     public static function me(): void
     {
         $userId = AuthMiddleware::currentUserId();
         if (!$userId) {
-            Response::error('No autenticado.', 401);
+            Response::error('Not authenticated.', 401);
         }
 
         Response::json(['user' => User::findById($userId)]);

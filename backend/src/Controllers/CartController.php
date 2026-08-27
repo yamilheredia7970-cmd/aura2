@@ -28,17 +28,17 @@ final class CartController
                 'quantity' => 'required|int',
             ]);
         } catch (ValidationException $e) {
-            Response::error('Datos inválidos.', 422, $e->errors());
+            Response::error('Invalid data.', 422, $e->errors());
         }
 
         $quantity = (int) $data['quantity'];
         if ($quantity < 1) {
-            Response::error('La cantidad debe ser al menos 1.', 422);
+            Response::error('Quantity must be at least 1.', 422);
         }
 
         $variant = Product::findVariant((int) $data['product_id'], (int) $data['variant_id']);
         if (!$variant) {
-            Response::error('La combinación de talla/color no existe para este producto.', 404);
+            Response::error('That size/color combination does not exist for this product.', 404);
         }
 
         $cartId = Cart::resolveId(AuthMiddleware::currentUserId());
@@ -52,19 +52,19 @@ final class CartController
         try {
             $data = Validator::validate(self::body(), ['quantity' => 'required|int']);
         } catch (ValidationException $e) {
-            Response::error('Datos inválidos.', 422, $e->errors());
+            Response::error('Invalid data.', 422, $e->errors());
         }
 
         $quantity = (int) $data['quantity'];
         if ($quantity < 1) {
-            Response::error('La cantidad debe ser al menos 1.', 422);
+            Response::error('Quantity must be at least 1.', 422);
         }
 
         $cartId = Cart::resolveId(AuthMiddleware::currentUserId());
         $updated = Cart::updateItemQuantity($cartId, (int) $params['id'], $quantity);
 
         if (!$updated) {
-            Response::error('Ítem no encontrado en el carrito.', 404);
+            Response::error('Item not found in cart.', 404);
         }
 
         Response::json(['items' => Cart::items($cartId)]);
@@ -76,7 +76,7 @@ final class CartController
         $removed = Cart::removeItem($cartId, (int) $params['id']);
 
         if (!$removed) {
-            Response::error('Ítem no encontrado en el carrito.', 404);
+            Response::error('Item not found in cart.', 404);
         }
 
         Response::json(['items' => Cart::items($cartId)]);

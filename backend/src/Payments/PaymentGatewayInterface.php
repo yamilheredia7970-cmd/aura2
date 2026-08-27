@@ -7,10 +7,10 @@ namespace Backend\Payments;
 interface PaymentGatewayInterface
 {
     /**
-     * Inicia un pago para la orden dada y devuelve los datos que el frontend
-     * necesita para continuar (URL de redirección, client secret, etc.).
+     * Starts a payment for the given order and returns the data the frontend
+     * needs to continue (redirect URL, client secret, etc.).
      *
-     * @param array $order fila de la orden (ver Models\Order::find)
+     * @param array $order the order row (see Models\Order::find)
      */
     public function createPayment(array $order): array;
 }

@@ -19,7 +19,7 @@ final class CsrfMiddleware
 
         $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
         if (!Csrf::verify($token)) {
-            Response::error('Token CSRF inválido o ausente.', 419);
+            Response::error('Invalid or missing CSRF token.', 419);
         }
     }
 }

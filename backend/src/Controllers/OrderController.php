@@ -24,7 +24,7 @@ final class OrderController
                 'shipping_address' => 'required|max:500',
             ]);
         } catch (ValidationException $e) {
-            Response::error('Datos inválidos.', 422, $e->errors());
+            Response::error('Invalid data.', 422, $e->errors());
         }
 
         $cartId = Cart::resolveId($userId);
@@ -48,7 +48,7 @@ final class OrderController
         $order = Order::find((int) $params['id'], AuthMiddleware::currentUserId());
 
         if (!$order) {
-            Response::error('Orden no encontrada.', 404);
+            Response::error('Order not found.', 404);
         }
 
         Response::json(['order' => $order]);
@@ -59,7 +59,7 @@ final class OrderController
         $order = Order::find((int) $params['id'], AuthMiddleware::currentUserId());
 
         if (!$order) {
-            Response::error('Orden no encontrada.', 404);
+            Response::error('Order not found.', 404);
         }
 
         $gateway = new StubGateway();
