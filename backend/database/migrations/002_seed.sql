@@ -11,7 +11,7 @@ INSERT INTO products (category_id, name, short_description, price, old_price, ra
 (2, 'Classic Oxford Shirt', '100% cotton shirt ideal for work or casual outings.', 55.00, NULL, 4.5, 89, 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&q=80&w=600', 1, 0),
 (1, 'Printed Midi Dress', 'Flowy dress with floral print and waist adjustment.', 85.00, NULL, 4.9, 210, 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=600', 0, 1),
 (2, 'Vintage Leather Jacket', 'Genuine leather jacket with classic biker style.', 250.00, NULL, 4.7, 56, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=600', 0, 0),
-(3, 'White Urban Sneakers', 'Daily comfort with a minimalist and versatile design.', 95.00, 110.00, 4.6, 340, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=600', 0, 1),
+(3, 'White Urban Sneakers', 'Daily comfort with a minimalist and versatile design.', 95.00, 110.00, 4.6, 340, 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&q=80&w=600', 0, 1),
 (4, 'Vegan Leather Tote Bag', 'Spacious everyday bag, elegant and durable.', 70.00, NULL, 4.8, 112, 'https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&q=80&w=600', 1, 0);
 
 -- Variantes (talla/color/stock) para cada producto insertado arriba
