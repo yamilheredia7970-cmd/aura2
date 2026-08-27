@@ -1,13 +1,13 @@
 <!-- Top Announcement Bar -->
 <div class="bg-brand-900 text-white text-xs md:text-sm text-center py-2 px-4 font-medium tracking-wide">
-  Free shipping on all orders over $150 | Extended returns
+  Envío gratis en compras superiores a $150 | Devoluciones extendidas
 </div>
 
 <!-- Navigation -->
 <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
-      
+
       <!-- Mobile menu button -->
       <div class="flex items-center md:hidden">
         <button (click)="toggleMobileMenu()" class="text-gray-500 hover:text-brand-900 p-2">
@@ -58,7 +58,7 @@
   @if (isMobileMenuOpen()) {
     <div class="md:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-4 shadow-lg absolute w-full">
       <div class="relative w-full mb-6">
-        <input type="text" placeholder="Search products..." class="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-brand-500">
+        <input type="text" placeholder="Buscar productos..." class="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 px-4 pl-10 text-sm focus:outline-none focus:ring-1 focus:ring-brand-500">
         <mat-icon class="absolute left-3 top-2.5 text-gray-400 text-sm">search</mat-icon>
       </div>
       @for (cat of categories(); track cat.id) {
@@ -66,10 +66,10 @@
       }
       <div class="flex items-center space-x-6 pt-4">
         <button (click)="onAccountClick()" class="flex items-center text-sm text-gray-600">
-          <mat-icon class="mr-2 text-gray-400">person_outline</mat-icon> {{ currentUser() ? 'Cerrar sesión' : 'My Account' }}
+          <mat-icon class="mr-2 text-gray-400">person_outline</mat-icon> {{ currentUser() ? 'Cerrar sesión' : 'Mi Cuenta' }}
         </button>
         <a href="#" class="flex items-center text-sm text-gray-600">
-          <mat-icon class="mr-2 text-gray-400">favorite_border</mat-icon> Favorites
+          <mat-icon class="mr-2 text-gray-400">favorite_border</mat-icon> Favoritos
         </a>
       </div>
     </div>
@@ -82,24 +82,24 @@
   <section class="relative h-[80vh] md:h-[85vh] overflow-hidden bg-gray-900">
     <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000" alt="Nueva Colección" class="absolute inset-0 w-full h-full object-cover object-top opacity-80" referrerpolicy="no-referrer" />
     <div class="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/20 to-transparent"></div>
-    
+
     <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-24 md:pb-32">
       <div class="max-w-2xl">
         <span class="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-sm text-white text-xs font-semibold tracking-widest uppercase mb-4 border border-white/20">
-          Autumn / Winter Collection
+          Colección Otoño / Invierno
         </span>
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-tight mb-6">
-          Effortless <br/>Elegance.
+          Elegancia <br/>sin esfuerzo.
         </h1>
         <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-lg font-light leading-relaxed">
-          Discover timeless silhouettes and premium textures designed to elevate your everyday style.
+          Descubrí siluetas atemporales y texturas premium diseñadas para elevar tu estilo diario.
         </p>
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <button class="bg-white text-brand-900 px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-gray-100 transition-colors flex items-center justify-center">
-            Shop Now
+            Comprar Ahora
           </button>
           <button class="bg-transparent border border-white text-white px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-white/10 transition-colors flex items-center justify-center">
-            View Collection
+            Ver Colección
           </button>
         </div>
       </div>
@@ -113,29 +113,29 @@
         <div class="flex flex-col items-center text-center space-y-3">
           <mat-icon class="text-brand-500 text-3xl">local_shipping</mat-icon>
           <div>
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Free Shipping</h3>
-            <p class="text-xs text-gray-500 mt-1">On orders over $150</p>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Envío Gratis</h3>
+            <p class="text-xs text-gray-500 mt-1">En compras superiores a $150</p>
           </div>
         </div>
         <div class="flex flex-col items-center text-center space-y-3">
           <mat-icon class="text-brand-500 text-3xl">security</mat-icon>
           <div>
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Secure Payment</h3>
-            <p class="text-xs text-gray-500 mt-1">100% protected transactions</p>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Pago Seguro</h3>
+            <p class="text-xs text-gray-500 mt-1">Transacciones 100% protegidas</p>
           </div>
         </div>
         <div class="flex flex-col items-center text-center space-y-3">
           <mat-icon class="text-brand-500 text-3xl">autorenew</mat-icon>
           <div>
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Free Returns</h3>
-            <p class="text-xs text-gray-500 mt-1">Up to 30 days to return</p>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Devoluciones Gratis</h3>
+            <p class="text-xs text-gray-500 mt-1">Hasta 30 días para devolver</p>
           </div>
         </div>
         <div class="flex flex-col items-center text-center space-y-3">
           <mat-icon class="text-brand-500 text-3xl">support_agent</mat-icon>
           <div>
-            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">24/7 Support</h3>
-            <p class="text-xs text-gray-500 mt-1">Personalized assistance</p>
+            <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Soporte 24/7</h3>
+            <p class="text-xs text-gray-500 mt-1">Asistencia personalizada</p>
           </div>
         </div>
       </div>
@@ -146,12 +146,12 @@
   <section class="py-20 bg-brand-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-end mb-10">
-        <h2 class="text-3xl font-serif text-brand-900">Categories</h2>
+        <h2 class="text-3xl font-serif text-brand-900">Categorías</h2>
         <a href="#" class="text-sm font-medium text-brand-500 hover:text-brand-900 flex items-center transition-colors uppercase tracking-widest">
-          View All <mat-icon class="text-sm ml-1">arrow_forward</mat-icon>
+          Ver Todo <mat-icon class="text-sm ml-1">arrow_forward</mat-icon>
         </a>
       </div>
-      
+
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         @for (category of categories(); track category.id) {
           <a href="#" class="group block relative overflow-hidden rounded-lg aspect-[4/5]">
@@ -171,15 +171,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="relative rounded-2xl overflow-hidden bg-brand-900">
         <div class="absolute inset-0 opacity-40">
-           <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=2000" alt="Sale Texture" class="w-full h-full object-cover grayscale mix-blend-overlay" referrerpolicy="no-referrer">
+           <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=2000" alt="Textura de ofertas" class="w-full h-full object-cover grayscale mix-blend-overlay" referrerpolicy="no-referrer">
         </div>
         <div class="relative px-8 py-16 md:px-16 md:py-20 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
           <div class="mb-8 md:mb-0 max-w-xl">
-            <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">Mid-Season Sale</h2>
-            <p class="text-brand-400 text-lg mb-0">Enjoy up to <span class="text-white font-semibold">40% off</span> on selected items. Limited time only.</p>
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">Ofertas de Temporada</h2>
+            <p class="text-brand-400 text-lg mb-0">Disfrutá hasta <span class="text-white font-semibold">40% off</span> en artículos seleccionados. Por tiempo limitado.</p>
           </div>
           <button class="bg-brand-500 text-white px-8 py-4 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-400 transition-colors whitespace-nowrap">
-            Discover Deals
+            Ver Ofertas
           </button>
         </div>
       </div>
@@ -189,20 +189,20 @@
   <!-- Catalog Section -->
   <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <!-- Catalog Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b border-gray-100 pb-4 gap-4">
-        <h2 class="text-3xl font-serif text-brand-900">Catalog</h2>
-        
+        <h2 class="text-3xl font-serif text-brand-900">Catálogo</h2>
+
         <!-- Mobile Filter Toggle -->
         <button (click)="toggleFilterMobile()" class="lg:hidden flex items-center text-sm font-medium text-brand-900 border border-gray-200 px-4 py-2 rounded-sm hover:bg-gray-50 transition-colors">
-          <mat-icon class="text-[18px] mr-2">filter_list</mat-icon> Filters
+          <mat-icon class="text-[18px] mr-2">filter_list</mat-icon> Filtros
         </button>
 
         <!-- Categories Tabs -->
         <div class="flex space-x-6 overflow-x-auto w-full md:w-auto scrollbar-hide pb-2 md:pb-0">
-          <button (click)="setCategory('All')" [class]="selectedCategory() === 'All' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">All</button>
-          <button (click)="setCategory('New Arrivals')" [class]="selectedCategory() === 'New Arrivals' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">New Arrivals</button>
+          <button (click)="setCategory('All')" [class]="selectedCategory() === 'All' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">Todos</button>
+          <button (click)="setCategory('New Arrivals')" [class]="selectedCategory() === 'New Arrivals' ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">Novedades</button>
           @for (cat of categories(); track cat.id) {
             <button (click)="setCategory(cat.name)" [class]="selectedCategory() === cat.name ? 'text-sm font-semibold border-b-2 border-brand-900 pb-1 text-brand-900 whitespace-nowrap' : 'text-sm font-medium border-b-2 border-transparent pb-1 text-gray-500 hover:text-brand-900 whitespace-nowrap transition-colors'">{{cat.name}}</button>
           }
@@ -210,13 +210,13 @@
       </div>
 
       <div class="flex flex-col lg:flex-row gap-8">
-        
+
         <!-- Sidebar Filters -->
         <aside [class.hidden]="!isFilterOpen()" class="lg:block w-full lg:w-64 flex-shrink-0 space-y-10">
-          
+
           <!-- Price Filter -->
           <div>
-            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Max Price</h3>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Precio Máximo</h3>
             <div class="flex justify-between text-sm text-gray-600 mb-2">
               <span>$0</span>
               <span class="font-medium text-brand-900">{{maxPrice() | currency}}</span>
@@ -226,10 +226,10 @@
 
           <!-- Sizes Filter -->
           <div>
-            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Sizes</h3>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Tallas</h3>
             <div class="flex flex-wrap gap-2">
               @for (size of availableSizes(); track size) {
-                <button 
+                <button
                   (click)="toggleSize(size)"
                   [class]="selectedSizes().has(size) ? 'bg-brand-900 text-white border-brand-900' : 'bg-white text-gray-700 border-gray-200 hover:border-brand-900'"
                   class="min-w-[2.5rem] h-10 px-2 border rounded-sm text-sm font-medium transition-colors focus:outline-none">
@@ -241,10 +241,10 @@
 
           <!-- Colors Filter -->
           <div>
-            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Colors</h3>
+            <h3 class="text-sm font-semibold text-brand-900 uppercase tracking-wider mb-4">Colores</h3>
             <div class="flex flex-wrap gap-3">
               @for (color of availableColors(); track color) {
-                <button 
+                <button
                   (click)="toggleColor(color)"
                   [style.background-color]="color"
                   [class.ring-2]="selectedColors().has(color)"
@@ -254,15 +254,15 @@
               }
             </div>
           </div>
-          
+
           @if (selectedSizes().size > 0 || selectedColors().size > 0 || maxPrice() < 300 || selectedCategory() !== 'All') {
             <div class="pt-4 border-t border-gray-100">
               <button (click)="clearFilters()" class="text-sm text-accent-red font-medium hover:underline w-full text-left flex items-center">
-                <mat-icon class="text-[16px] mr-1">clear</mat-icon> Clear all filters
+                <mat-icon class="text-[16px] mr-1">clear</mat-icon> Borrar todos los filtros
               </button>
             </div>
           }
-          
+
         </aside>
 
         <!-- Product Grid -->
@@ -270,10 +270,10 @@
           @if (filteredProducts().length === 0) {
             <div class="text-center py-20 bg-gray-50 rounded-sm border border-gray-100">
               <mat-icon class="text-gray-400 text-5xl mb-4">search_off</mat-icon>
-              <h3 class="text-lg font-medium text-brand-900 mb-2">No products found</h3>
-              <p class="text-gray-500 mb-6 max-w-md mx-auto">There are no items matching your selected filters. Try adjusting the price, color, or size.</p>
+              <h3 class="text-lg font-medium text-brand-900 mb-2">No se encontraron productos</h3>
+              <p class="text-gray-500 mb-6 max-w-md mx-auto">No hay artículos que coincidan con los filtros seleccionados. Probá ajustar el precio, color o talla.</p>
               <button (click)="clearFilters()" class="border border-brand-900 text-brand-900 px-6 py-2.5 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-900 hover:text-white transition-colors">
-                Clear Filters
+                Borrar Filtros
               </button>
             </div>
           } @else {
@@ -283,7 +283,7 @@
             <!-- Product Image -->
             <div class="relative aspect-[3/4] mb-4 bg-gray-100 overflow-hidden rounded-sm">
               <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" referrerpolicy="no-referrer" />
-              
+
               <!-- Badges and Favorite -->
               <div class="absolute top-3 left-3 flex flex-col gap-2">
                 @if (product.discount) {
@@ -293,7 +293,7 @@
                 }
                 @if (product.isNew) {
                   <span class="bg-white text-brand-900 text-[10px] font-bold px-2 py-1 uppercase tracking-wider rounded-sm shadow-sm">
-                    New
+                    Nuevo
                   </span>
                 }
               </div>
@@ -304,10 +304,10 @@
               <!-- Quick Actions overlay on hover -->
               <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out flex justify-center space-x-2">
                 <button (click)="addToCart(product)" class="bg-white text-brand-900 flex-1 py-2.5 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors rounded-sm flex items-center justify-center shadow-sm">
-                  <mat-icon class="text-[18px] mr-1">add_shopping_cart</mat-icon> Add
+                  <mat-icon class="text-[18px] mr-1">add_shopping_cart</mat-icon> Agregar
                 </button>
                 <button (click)="openQuickView(product)" class="bg-white/90 text-brand-900 flex-1 py-2.5 text-xs sm:text-sm font-medium hover:bg-white transition-colors rounded-sm flex items-center justify-center shadow-sm">
-                  <mat-icon class="text-[18px] mr-1">visibility</mat-icon> View
+                  <mat-icon class="text-[18px] mr-1">visibility</mat-icon> Ver
                 </button>
               </div>
             </div>
@@ -342,11 +342,11 @@
           </div>
         }
       </div>
-      
+
       @if (filteredProducts().length > 12) {
         <div class="mt-16 text-center border-t border-gray-100 pt-12">
           <button class="border border-brand-900 text-brand-900 px-8 py-3 rounded-none font-medium text-sm tracking-widest uppercase hover:bg-brand-900 hover:text-white transition-colors inline-block">
-            Load More
+            Ver Más
           </button>
         </div>
       }
@@ -362,12 +362,12 @@
     </div>
     <div class="w-full md:w-1/2 p-12 md:p-20 flex flex-col justify-center text-white">
       <span class="text-brand-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Editorial</span>
-      <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Everyday<br/>Minimalism</h2>
+      <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Minimalismo<br/>Cotidiano</h2>
       <p class="text-gray-300 mb-10 max-w-md font-light text-lg">
-        Our new collection focuses on essential pieces designed to combine seamlessly, creating a versatile and timeless wardrobe.
+        Nuestra nueva colección se centra en piezas esenciales diseñadas para combinar sin esfuerzo, creando un guardarropa versátil y atemporal.
       </p>
       <a href="#" class="inline-flex items-center text-sm font-medium tracking-widest uppercase border-b border-brand-400 pb-1 w-max hover:text-brand-400 transition-colors">
-        Explore Lookbook <mat-icon class="ml-2 text-sm">arrow_forward</mat-icon>
+        Explorar Lookbook <mat-icon class="ml-2 text-sm">arrow_forward</mat-icon>
       </a>
     </div>
   </section>
@@ -375,14 +375,14 @@
   <!-- Best Sellers -->
   <section class="py-20 bg-brand-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-serif text-brand-900 text-center mb-12">Recommended</h2>
+      <h2 class="text-3xl font-serif text-brand-900 text-center mb-12">Recomendados</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @for (product of bestSellers(); track product.id) {
           <div class="bg-white p-4 rounded-sm shadow-sm group">
             <div class="relative aspect-[3/4] mb-4 overflow-hidden rounded-sm bg-gray-50">
                <img [src]="product.imageUrl" [alt]="product.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerpolicy="no-referrer" />
                <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
-               
+
                <button class="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-accent-red transition-colors shadow-sm opacity-0 group-hover:opacity-100">
                 <mat-icon class="text-[18px]">favorite_border</mat-icon>
                </button>
@@ -410,7 +410,7 @@
   <section class="py-20 bg-white border-t border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-serif text-brand-900 mb-4">What our customers say</h2>
+        <h2 class="text-3xl font-serif text-brand-900 mb-4">Lo que dicen nuestros clientes</h2>
         <div class="flex justify-center space-x-1">
            <mat-icon class="text-brand-500">star</mat-icon>
            <mat-icon class="text-brand-500">star</mat-icon>
@@ -418,9 +418,9 @@
            <mat-icon class="text-brand-500">star</mat-icon>
            <mat-icon class="text-brand-500">star</mat-icon>
         </div>
-        <p class="text-sm text-gray-500 mt-2">Based on over 2,500 verified reviews</p>
+        <p class="text-sm text-gray-500 mt-2">Basado en más de 2.500 reseñas verificadas</p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         @for (testimonial of testimonials; track testimonial.id) {
           <div class="bg-brand-100/50 p-8 rounded-lg relative">
@@ -447,29 +447,29 @@
   <section class="py-24 bg-brand-900 border-t border-brand-800">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
       <mat-icon class="text-brand-500 text-4xl mb-4">mark_email_read</mat-icon>
-      <h2 class="text-3xl font-serif text-white mb-4">Join our club</h2>
-      <p class="text-gray-300 mb-8 font-light text-lg">Suscríbete y recibe acceso anticipado a nuevas colecciones, ventas exclusivas y un 15% de descuento en tu primera compra.</p>
-      
+      <h2 class="text-3xl font-serif text-white mb-4">Sumate al club</h2>
+      <p class="text-gray-300 mb-8 font-light text-lg">Suscribite y recibí acceso anticipado a nuevas colecciones, ventas exclusivas y un 15% de descuento en tu primera compra.</p>
+
       <form class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-        <input type="email" placeholder="Your email address" class="flex-1 bg-brand-800 border border-brand-800 text-white rounded-none py-3.5 px-4 focus:outline-none focus:border-brand-500 placeholder-gray-400" required>
+        <input type="email" placeholder="Tu dirección de email" class="flex-1 bg-brand-800 border border-brand-800 text-white rounded-none py-3.5 px-4 focus:outline-none focus:border-brand-500 placeholder-gray-400" required>
         <button type="submit" class="bg-brand-500 text-white px-8 py-3.5 rounded-none font-medium tracking-widest uppercase hover:bg-brand-400 transition-colors whitespace-nowrap">
-          Subscribe
+          Suscribirme
         </button>
       </form>
     </div>
   </section>
   }
-  
+
   @if (currentView() === 'checkout') {
     <section class="py-12 bg-gray-50 min-h-screen">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumbs -->
         <div class="mb-8">
-          <h1 class="text-3xl font-serif text-brand-900 mb-2">Checkout</h1>
+          <h1 class="text-3xl font-serif text-brand-900 mb-2">Finalizar Compra</h1>
           <p class="text-sm text-gray-500">
-            <a href="#" (click)="goToHome($event)" class="hover:text-brand-900 transition-colors">Home</a> 
-            <span class="mx-2">/</span> 
-            <span class="text-brand-900">Checkout</span>
+            <a href="#" (click)="goToHome($event)" class="hover:text-brand-900 transition-colors">Inicio</a>
+            <span class="mx-2">/</span>
+            <span class="text-brand-900">Finalizar Compra</span>
           </p>
         </div>
 
@@ -480,12 +480,12 @@
             <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
               <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
                 <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">1</span>
-                Contact Information
+                Información de Contacto
               </h2>
               <div class="space-y-4">
                 <div>
-                  <span class="block text-sm font-medium text-gray-700 mb-1">Email Address</span>
-                  <input type="email" [(ngModel)]="checkoutForm.email" name="checkoutEmail" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" placeholder="example@email.com">
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</span>
+                  <input type="email" [(ngModel)]="checkoutForm.email" name="checkoutEmail" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" placeholder="ejemplo@email.com">
                 </div>
               </div>
             </div>
@@ -494,27 +494,27 @@
             <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
               <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
                 <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">2</span>
-                Shipping Address
+                Dirección de Envío
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <span class="block text-sm font-medium text-gray-700 mb-1">First Name</span>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Nombre</span>
                   <input type="text" [(ngModel)]="checkoutForm.firstName" name="checkoutFirstName" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
                 </div>
                 <div>
-                  <span class="block text-sm font-medium text-gray-700 mb-1">Last Name</span>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Apellido</span>
                   <input type="text" [(ngModel)]="checkoutForm.lastName" name="checkoutLastName" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
                 </div>
                 <div class="md:col-span-2">
-                  <span class="block text-sm font-medium text-gray-700 mb-1">Address</span>
-                  <input type="text" [(ngModel)]="checkoutForm.address" name="checkoutAddress" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="Street and number">
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Dirección</span>
+                  <input type="text" [(ngModel)]="checkoutForm.address" name="checkoutAddress" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="Calle y número">
                 </div>
                 <div>
-                  <span class="block text-sm font-medium text-gray-700 mb-1">City</span>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Ciudad</span>
                   <input type="text" [(ngModel)]="checkoutForm.city" name="checkoutCity" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
                 </div>
                 <div>
-                  <span class="block text-sm font-medium text-gray-700 mb-1">Postal Code</span>
+                  <span class="block text-sm font-medium text-gray-700 mb-1">Código Postal</span>
                   <input type="text" [(ngModel)]="checkoutForm.postalCode" name="checkoutPostalCode" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500">
                 </div>
               </div>
@@ -524,24 +524,24 @@
             <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100">
               <h2 class="text-lg font-medium text-brand-900 mb-4 flex items-center">
                 <span class="w-6 h-6 rounded-full bg-brand-900 text-white flex items-center justify-center text-xs mr-3">3</span>
-                Payment Method
+                Método de Pago
               </h2>
               <div class="space-y-4">
                 <div class="border border-gray-300 rounded-sm p-4 flex items-center bg-gray-50">
                   <input type="radio" checked name="payment" class="h-4 w-4 text-brand-900 focus:ring-brand-900 border-gray-300">
                   <span class="ml-3 flex items-center">
                     <mat-icon class="text-gray-500 mr-2">credit_card</mat-icon>
-                    <span class="text-sm font-medium text-gray-900">Credit / Debit Card</span>
+                    <span class="text-sm font-medium text-gray-900">Tarjeta de Crédito / Débito</span>
                   </span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div class="md:col-span-2">
-                    <span class="block text-sm font-medium text-gray-700 mb-1">Card Number</span>
+                    <span class="block text-sm font-medium text-gray-700 mb-1">Número de Tarjeta</span>
                     <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="0000 0000 0000 0000">
                   </div>
                   <div>
-                    <span class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</span>
-                    <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="MM/YY">
+                    <span class="block text-sm font-medium text-gray-700 mb-1">Fecha de Vencimiento</span>
+                    <input type="text" class="w-full border border-gray-300 rounded-sm py-2 px-3 focus:outline-none focus:border-brand-500" placeholder="MM/AA">
                   </div>
                   <div>
                     <span class="block text-sm font-medium text-gray-700 mb-1">CVV</span>
@@ -555,8 +555,8 @@
           <!-- Right Column (Summary) -->
           <div class="lg:w-96">
             <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100 sticky top-28">
-              <h2 class="text-lg font-medium text-brand-900 mb-6">Order Summary</h2>
-              
+              <h2 class="text-lg font-medium text-brand-900 mb-6">Resumen del Pedido</h2>
+
               <div class="space-y-4 mb-6 max-h-64 overflow-y-auto pr-2">
                 @for (item of cartItems(); track item.product.id) {
                   <div class="flex items-center gap-4">
@@ -566,20 +566,20 @@
                     <div class="flex-1">
                       <h4 class="text-sm font-medium text-brand-900 line-clamp-1">{{item.product.name}}</h4>
                       <p class="text-xs text-gray-500 mb-1">
-                        @if (item.selectedSize) { Size: {{item.selectedSize}} }
+                        @if (item.selectedSize) { Talla: {{item.selectedSize}} }
                         @if (item.selectedSize && item.selectedColor) { | }
                         @if (item.selectedColor) { Color: {{item.selectedColor}} }
                       </p>
                       <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-600">Qty: {{item.quantity}}</span>
+                        <span class="text-sm text-gray-600">Cant.: {{item.quantity}}</span>
                         <span class="text-sm font-medium text-brand-900">{{item.product.price * item.quantity | currency}}</span>
                       </div>
                     </div>
                   </div>
                 }
-                
+
                 @if (cartItems().length === 0) {
-                  <p class="text-sm text-gray-500 text-center py-4">Your cart is empty.</p>
+                  <p class="text-sm text-gray-500 text-center py-4">Tu carrito está vacío.</p>
                 }
               </div>
 
@@ -589,8 +589,8 @@
                   <span>{{cartTotal() | currency}}</span>
                 </div>
                 <div class="flex justify-between text-sm text-gray-600">
-                  <span>Shipping</span>
-                  <span class="text-brand-500 font-medium">Free</span>
+                  <span>Envío</span>
+                  <span class="text-brand-500 font-medium">Gratis</span>
                 </div>
                 <div class="flex justify-between text-lg font-serif font-semibold text-brand-900 pt-2 border-t border-gray-100">
                   <span>Total</span>
@@ -600,7 +600,7 @@
 
               <button (click)="placeOrder()" class="w-full mt-8 bg-brand-900 text-white py-4 rounded-none font-medium tracking-widest uppercase hover:bg-brand-800 transition-colors flex justify-center items-center group">
                 <mat-icon class="mr-2 group-hover:scale-110 transition-transform">lock</mat-icon>
-                Pay & Complete Order
+                Pagar y Completar Pedido
               </button>
             </div>
           </div>
@@ -614,14 +614,14 @@
 <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
-      
+
       <!-- Brand info -->
       <div class="lg:col-span-2">
         <a href="#" class="font-serif text-2xl tracking-tight text-brand-900 font-semibold mb-6 block">
           AURA<span class="text-brand-500">.</span>
         </a>
         <p class="text-gray-500 text-sm mb-6 max-w-sm leading-relaxed">
-          We design timeless garments with premium materials for those who value quality, elegance, and simplicity in their everyday life.
+          Diseñamos prendas atemporales con materiales premium para quienes valoran la calidad, la elegancia y la simplicidad en su día a día.
         </p>
         <div class="flex space-x-4">
           <a href="#" class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center text-brand-900 hover:bg-brand-900 hover:text-white transition-colors">
@@ -638,33 +638,33 @@
 
       <!-- Links -->
       <div>
-        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Shop</h4>
+        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Tienda</h4>
         <ul class="space-y-3">
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">New Arrivals</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Men</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Women</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Accessories</a></li>
-          <li><a href="#" class="text-accent-red font-medium hover:underline text-sm transition-colors">Sale / Offers</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Novedades</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Hombre</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Mujer</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Accesorios</a></li>
+          <li><a href="#" class="text-accent-red font-medium hover:underline text-sm transition-colors">Rebajas / Ofertas</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Help</h4>
+        <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Ayuda</h4>
         <ul class="space-y-3">
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">FAQ</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Shipping & Delivery</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Returns & Exchanges</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Size Guide</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Contact Us</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Preguntas Frecuentes</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Envíos y Entregas</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Devoluciones y Cambios</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Guía de Talles</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Contactanos</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Legal</h4>
         <ul class="space-y-3">
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Terms & Conditions</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Privacy Policy</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Cookie Policy</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Términos y Condiciones</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Política de Privacidad</a></li>
+          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Política de Cookies</a></li>
         </ul>
       </div>
 
@@ -672,7 +672,7 @@
 
     <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
       <p class="text-xs text-gray-400">
-        &copy; 2026 Aura Moda. All rights reserved.
+        &copy; 2026 Aura Moda. Todos los derechos reservados.
       </p>
       <div class="flex items-center space-x-3 opacity-60">
         <div class="h-6 w-10 bg-gray-200 rounded border border-gray-300"></div>
@@ -693,12 +693,12 @@
     <div class="fixed inset-y-0 right-0 max-w-full flex">
       <div class="w-screen max-w-md transform transition ease-in-out duration-500">
         <div class="h-full flex flex-col bg-white shadow-xl">
-          
+
           <!-- Cart Header -->
           <div class="flex-1 overflow-y-auto scrollbar-hide">
             <div class="flex items-start justify-between px-6 py-6 border-b border-gray-100">
               <h2 class="text-xl font-serif text-brand-900 flex items-center" id="slide-over-title">
-                <mat-icon class="mr-2">shopping_bag</mat-icon> Your Cart 
+                <mat-icon class="mr-2">shopping_bag</mat-icon> Tu Carrito
                 <span class="text-brand-500 text-base font-sans ml-2">({{cartItemCount()}})</span>
               </h2>
               <button (click)="toggleCart()" class="text-gray-400 hover:text-gray-500 p-1">
@@ -712,10 +712,10 @@
                   <div class="w-20 h-20 bg-brand-100 rounded-full flex items-center justify-center mb-6">
                     <mat-icon class="text-brand-400 text-3xl">shopping_cart</mat-icon>
                   </div>
-                  <p class="text-lg text-gray-500 font-medium mb-2">Your cart is empty</p>
-                  <p class="text-sm text-gray-400 mb-8">It looks like you haven't added anything yet.</p>
+                  <p class="text-lg text-gray-500 font-medium mb-2">Tu carrito está vacío</p>
+                  <p class="text-sm text-gray-400 mb-8">Parece que todavía no agregaste nada.</p>
                   <button (click)="toggleCart()" class="bg-brand-900 text-white px-8 py-3 font-medium text-sm tracking-widest uppercase hover:bg-brand-800 transition-colors rounded-sm">
-                    Explore Products
+                    Explorar Productos
                   </button>
                 </div>
               } @else {
@@ -735,7 +735,7 @@
                             </div>
                             <p class="mt-1 text-sm text-gray-500">
                               @if(item.selectedColor) { Color: <span class="inline-block w-3 h-3 rounded-full border border-gray-300 ml-1 translate-y-0.5" [style.background-color]="item.selectedColor"></span> }
-                              @if(item.selectedSize) { <span class="mx-2">|</span> Size: {{item.selectedSize}} }
+                              @if(item.selectedSize) { <span class="mx-2">|</span> Talla: {{item.selectedSize}} }
                             </p>
                           </div>
                           <div class="flex items-center justify-between mt-4">
@@ -750,7 +750,7 @@
                               </button>
                             </div>
                             <button (click)="removeFromCart($index)" class="text-sm font-medium text-accent-red hover:underline flex items-center">
-                              <mat-icon class="text-[16px] mr-1">delete_outline</mat-icon> Remove
+                              <mat-icon class="text-[16px] mr-1">delete_outline</mat-icon> Quitar
                             </button>
                           </div>
                         </div>
@@ -769,15 +769,15 @@
                 <p>Subtotal</p>
                 <p>{{cartTotal() | currency}}</p>
               </div>
-              <p class="mt-0.5 text-sm text-gray-500 mb-6 font-light">Shipping and taxes calculated at checkout.</p>
+              <p class="mt-0.5 text-sm text-gray-500 mb-6 font-light">Envío e impuestos calculados al finalizar la compra.</p>
               <div class="mt-6">
                 <button (click)="goToCheckout()" class="w-full bg-brand-900 flex justify-center items-center px-6 py-4 border border-transparent rounded-sm shadow-sm text-sm font-medium tracking-widest uppercase text-white hover:bg-brand-800 transition-colors">
-                  Checkout <mat-icon class="ml-2 text-sm">lock</mat-icon>
+                  Finalizar Compra <mat-icon class="ml-2 text-sm">lock</mat-icon>
                 </button>
               </div>
               <div class="mt-4 flex justify-center text-sm text-center text-gray-500">
                 <p>
-                  or <button type="button" (click)="toggleCart()" class="text-brand-900 font-medium hover:text-brand-500 underline ml-1">Continue shopping</button>
+                  o <button type="button" (click)="toggleCart()" class="text-brand-900 font-medium hover:text-brand-500 underline ml-1">Seguir comprando</button>
                 </p>
               </div>
             </div>
@@ -796,7 +796,7 @@
       <button (click)="closeQuickView()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-500 hover:text-brand-900 hover:bg-white transition-colors shadow-sm">
         <mat-icon>close</mat-icon>
       </button>
-      
+
       <!-- Image Side -->
       <div class="w-full md:w-1/2 min-h-[300px] md:min-h-0 bg-gray-100 relative">
         <img [src]="selectedProduct()!.imageUrl" [alt]="selectedProduct()!.name" class="w-full h-full object-cover object-center absolute inset-0" referrerpolicy="no-referrer">
@@ -811,7 +811,7 @@
       <div class="w-full md:w-1/2 p-6 sm:p-10 overflow-y-auto max-h-[60vh] md:max-h-[80vh] flex flex-col">
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-2">{{selectedProduct()!.category}}</p>
         <h2 class="text-3xl font-serif text-brand-900 mb-4">{{selectedProduct()!.name}}</h2>
-        
+
         <div class="flex items-center mb-6">
           <div class="flex items-center text-brand-500">
             <mat-icon class="text-[18px]">star</mat-icon>
@@ -820,7 +820,7 @@
             <mat-icon class="text-[18px]">star</mat-icon>
             <mat-icon class="text-[18px]">star_half</mat-icon>
           </div>
-          <span class="ml-2 text-sm text-gray-500">(4.5/5.0) 24 reviews</span>
+          <span class="ml-2 text-sm text-gray-500">(4.5/5.0) 24 reseñas</span>
         </div>
 
         <div class="mb-6 flex items-baseline space-x-3">
@@ -831,7 +831,7 @@
         </div>
 
         <p class="text-gray-600 mb-8 leading-relaxed text-sm">
-          Discover the perfect balance between style and comfort. Designed with your everyday life in mind, this item will become an essential staple in your wardrobe.
+          Descubrí el equilibrio perfecto entre estilo y comodidad. Pensado para tu día a día, esta prenda se convertirá en un básico esencial de tu guardarropa.
         </p>
 
         <!-- Colors -->
@@ -840,9 +840,9 @@
             <h4 class="text-sm font-medium text-brand-900 mb-3">Color</h4>
             <div class="flex space-x-3">
               @for (color of selectedProduct()!.colors; track color) {
-                <button 
+                <button
                   (click)="setQuickViewColor(color)"
-                  [style.background-color]="color" 
+                  [style.background-color]="color"
                   [class.ring-2]="quickViewColor() === color"
                   [class.ring-offset-2]="quickViewColor() === color"
                   class="w-8 h-8 rounded-full border border-gray-300 shadow-sm focus:outline-none ring-brand-900 transition-all hover:scale-110">
@@ -855,10 +855,10 @@
         <!-- Sizes -->
         @if (selectedProduct()!.sizes.length > 0) {
           <div class="mb-8">
-            <h4 class="text-sm font-medium text-brand-900 mb-3">Size</h4>
+            <h4 class="text-sm font-medium text-brand-900 mb-3">Talla</h4>
             <div class="flex flex-wrap gap-2">
               @for (size of selectedProduct()!.sizes; track size) {
-                <button 
+                <button
                   (click)="setQuickViewSize(size)"
                   [class]="quickViewSize() === size ? 'border-brand-900 bg-brand-900 text-white' : 'border-gray-300 text-gray-600 bg-white hover:border-brand-900'"
                   class="w-12 h-12 flex items-center justify-center border rounded-sm text-sm font-medium transition-colors focus:outline-none">
@@ -880,9 +880,9 @@
               <mat-icon class="text-[18px]">add</mat-icon>
             </button>
           </div>
-          
+
           <button (click)="addToCartFromQuickView()" class="flex-1 bg-brand-900 text-white px-6 py-3 rounded-sm font-medium tracking-widest uppercase hover:bg-brand-800 transition-colors flex items-center justify-center">
-            <mat-icon class="mr-2 text-[20px]">add_shopping_cart</mat-icon> Add to Cart
+            <mat-icon class="mr-2 text-[20px]">add_shopping_cart</mat-icon> Agregar al Carrito
           </button>
         </div>
       </div>
