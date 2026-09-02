@@ -2,14 +2,29 @@ import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, sign
 import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AuthUser, CartItem, Category, Product } from './models';
 import { TESTIMONIALS } from './data';
 import { ApiService } from './services/api.service';
 
+type LegalPage = 'terms' | 'privacy' | 'returns' | 'withdrawal';
+
+const LEGAL_ROUTE_SLUGS: Record<LegalPage, string> = {
+  terms: 'terms-and-conditions',
+  privacy: 'privacy-policy',
+  returns: 'returns-and-exchanges',
+  withdrawal: 'right-of-withdrawal',
+};
+
+const LEGAL_PAGE_BY_PATH: Record<string, LegalPage> = Object.fromEntries(
+  Object.entries(LEGAL_ROUTE_SLUGS).map(([page, slug]) => [`/${slug}`, page as LegalPage])
+);
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, MatIconModule, FormsModule],
+  imports: [CommonModule, CurrencyPipe, MatIconModule, FormsModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +32,11 @@ import { ApiService } from './services/api.service';
 export class App {
   private readonly api = inject(ApiService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
+
+  // Legal pages (Terms, Privacy, Returns, Right of Withdrawal): rendered as
+  // an overlay, but backed by a real route so each has a shareable URL.
+  activeLegalPage = signal<LegalPage | null>(null);
 
   // Data
   categories = signal<Category[]>([]);
@@ -104,6 +124,11 @@ export class App {
   });
 
   constructor() {
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe((e) => {
+      const path = (e as NavigationEnd).urlAfterRedirects.split(/[?#]/)[0];
+      this.activeLegalPage.set(LEGAL_PAGE_BY_PATH[path] ?? null);
+    });
+
     // The PHP backend isn't available during SSR prerendering:
     // dynamic data is loaded in the browser only, after hydration.
     if (!isPlatformBrowser(this.platformId)) return;
@@ -352,5 +377,15 @@ export class App {
         this.showToast(err?.error?.error ?? 'Could not complete the order.');
       },
     });
+  }
+
+  // Legal Pages
+  openLegalPage(page: LegalPage, event?: Event) {
+    if (event) event.preventDefault();
+    this.router.navigateByUrl(`/${LEGAL_ROUTE_SLUGS[page]}`);
+  }
+
+  closeLegalPage() {
+    this.router.navigateByUrl('/');
   }
 }

@@ -1,3 +1,6 @@
+<!-- Empty routed outlet: exists only so legal pages have a real URL. -->
+<router-outlet></router-outlet>
+
 <!-- Top Announcement Bar -->
 <div class="bg-brand-900 text-white text-xs md:text-sm text-center py-2 px-4 font-medium tracking-wide">
   Free shipping on all orders over $150 | Extended returns
@@ -653,7 +656,7 @@
         <ul class="space-y-3">
           <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">FAQ</a></li>
           <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Shipping & Delivery</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Returns & Exchanges</a></li>
+          <li><a href="#" (click)="openLegalPage('returns', $event)" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Returns & Exchanges</a></li>
           <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Size Guide</a></li>
           <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Contact Us</a></li>
         </ul>
@@ -662,9 +665,10 @@
       <div>
         <h4 class="font-semibold text-brand-900 text-sm tracking-wider uppercase mb-5">Legal</h4>
         <ul class="space-y-3">
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Terms & Conditions</a></li>
-          <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Privacy Policy</a></li>
+          <li><a href="#" (click)="openLegalPage('terms', $event)" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Terms & Conditions</a></li>
+          <li><a href="#" (click)="openLegalPage('privacy', $event)" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Privacy Policy</a></li>
           <li><a href="#" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Cookie Policy</a></li>
+          <li><a href="#" (click)="openLegalPage('withdrawal', $event)" class="text-gray-500 hover:text-brand-500 text-sm transition-colors">Right of Withdrawal</a></li>
         </ul>
       </div>
 
@@ -937,6 +941,108 @@
           <button (click)="openAuthModal('login')" class="text-brand-900 font-medium hover:underline ml-1">Log in</button>
         }
       </p>
+    </div>
+  </div>
+}
+
+<!-- Legal Pages Modal -->
+@if (activeLegalPage(); as page) {
+  <div class="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 bg-brand-900/80 backdrop-blur-sm" (click)="closeLegalPage()" (keyup.enter)="closeLegalPage()" tabindex="0" role="button"></div>
+    <div class="relative w-full max-w-2xl bg-white rounded-sm shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+      <button (click)="closeLegalPage()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-gray-500 hover:text-brand-900 hover:bg-white transition-colors shadow-sm">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <div class="p-8 sm:p-10 overflow-y-auto">
+        @switch (page) {
+          @case ('terms') {
+            <h2 class="text-3xl font-serif text-brand-900 mb-6">Terms & Conditions</h2>
+            <div class="space-y-5 text-sm text-gray-600 leading-relaxed">
+              <p>By accessing and placing an order with Aura Moda, you confirm that you are in agreement with and bound by the terms of service contained in this document. These terms apply to the entire website and any email or other type of communication between you and Aura Moda.</p>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Orders & Pricing</h3>
+                <p>All prices displayed are shown in the currency selected at checkout and are subject to change without prior notice. We reserve the right to refuse or cancel any order for reasons including product availability, errors in pricing or product information, or suspected fraud.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Product Descriptions</h3>
+                <p>We attempt to be as accurate as possible in describing our products. However, we do not warrant that product descriptions, colors, or other content is entirely accurate, complete, or error-free.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Account Responsibility</h3>
+                <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Limitation of Liability</h3>
+                <p>Aura Moda shall not be liable for any indirect, incidental, or consequential damages arising from the use of, or inability to use, our products or services.</p>
+              </div>
+            </div>
+          }
+          @case ('privacy') {
+            <h2 class="text-3xl font-serif text-brand-900 mb-6">Privacy Policy</h2>
+            <div class="space-y-5 text-sm text-gray-600 leading-relaxed">
+              <p>Your privacy is important to us. This policy explains what personal information we collect, how we use it, and the choices you have regarding your data.</p>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Information We Collect</h3>
+                <p>We collect information you provide directly (name, email, shipping address) when you create an account or place an order, as well as basic usage data to improve our service.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">How We Use Your Information</h3>
+                <p>Your information is used to process orders, communicate order updates, provide customer support, and — only with your consent — send you promotional communications.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Data Security</h3>
+                <p>Passwords are never stored in plain text, all sensitive requests are protected against cross-site request forgery, and payment details are handled exclusively by our certified payment providers — they never pass through or get stored on our servers.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Your Rights</h3>
+                <p>You may request access to, correction of, or deletion of your personal data at any time by contacting our support team.</p>
+              </div>
+            </div>
+          }
+          @case ('returns') {
+            <h2 class="text-3xl font-serif text-brand-900 mb-6">Returns & Exchanges</h2>
+            <div class="space-y-5 text-sm text-gray-600 leading-relaxed">
+              <p>We want you to love what you ordered. If something isn't right, we make returns and exchanges simple.</p>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Return Window</h3>
+                <p>Items may be returned within 30 days of delivery, provided they are unused, unwashed, and in their original packaging with tags attached.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">How to Start a Return</h3>
+                <p>Log in to your account, go to your order history, and select "Request Return" on the relevant order. You'll receive instructions and a prepaid shipping label by email.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Exchanges</h3>
+                <p>Need a different size or color? Select "Exchange" instead of "Return" when starting the process, and we'll ship the replacement as soon as the original item is received.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Refunds</h3>
+                <p>Once your return is received and inspected, refunds are issued to your original payment method within 5-7 business days.</p>
+              </div>
+            </div>
+          }
+          @case ('withdrawal') {
+            <h2 class="text-3xl font-serif text-brand-900 mb-6">Right of Withdrawal</h2>
+            <div class="space-y-5 text-sm text-gray-600 leading-relaxed">
+              <p>As a consumer, you have the right to withdraw from a purchase made on this site within 10 calendar days of receiving your order, without needing to give any reason.</p>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">How to Exercise This Right</h3>
+                <p>Contact our support team, or use the "Request Return" option in your account, clearly stating your decision to withdraw from the purchase within the 10-day period.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Effects of Withdrawal</h3>
+                <p>We will reimburse the full amount paid, including standard delivery costs, within 14 days of being informed of your decision. The item must be returned in its original condition; you are responsible for the direct cost of returning it unless it arrived defective or incorrect.</p>
+              </div>
+              <div>
+                <h3 class="text-brand-900 font-medium mb-1">Exceptions</h3>
+                <p>This right does not apply to items that have been used beyond simply trying them on, or to personalized/made-to-order products.</p>
+              </div>
+              <p class="text-xs text-gray-400">This section reflects consumer protection rights common in several jurisdictions, including Argentina's Ley de Defensa del Consumidor (24.240) and Resolución 424/2020.</p>
+            </div>
+          }
+        }
+      </div>
     </div>
   </div>
 }
