@@ -1364,75 +1364,142 @@ main:has(.raw-product-shell) .wp-block-spacer {
   color: inherit !important;
 }
 
-/* Mercado Pago panels (cash, credits, Checkout Pro, card): the plugin draws
-   white cards; restyle them dark to match the site. Card-number and CVV
-   fields are secure iframes whose text color cannot be changed, so every
-   field keeps a white background to stay readable. */
-.wp-block-woocommerce-checkout .mp-checkout-container,
-.wp-block-woocommerce-checkout .mp-checkout-container [class*="-container"],
-.wp-block-woocommerce-checkout .mp-checkout-container [class*="-benefits"],
-.wp-block-woocommerce-checkout .mp-checkout-container [class*="-list"] {
-  background: transparent !important;
+/* Mercado Pago panels (cash, credits, Checkout Pro, card).
+   The plugin ships its own white cards with strong selectors, so these
+   rules use a specificity boost: :is() takes the weight of its most
+   specific argument, and the unused #raw-boost id lifts every rule here
+   above the plugin's. Everything becomes transparent with light text,
+   except what must stay light for the customer: typing fields (card number,
+   expiry and CVV are secure iframes whose text color cannot be changed),
+   the yellow Mercado Pago button and the payment logos. */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  *:where(
+    :not(input):not(select):not(option):not(iframe):not(img):not(svg):not(rect):not(path):not(
+        button
+      ):not(.mp-checkout-custom-card-input):not(.mp-checkout-custom-security-code-input):not(
+        .mp-input
+      ):not(.mp-test-mode-badge):not(.mp-payment-method-logo-container)
+  ) {
+  background-color: transparent !important;
+  background-image: none !important;
   border-color: var(--raw-line) !important;
   box-shadow: none !important;
-}
-.wp-block-woocommerce-checkout .mp-checkout-container {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-.wp-block-woocommerce-checkout
-  .mp-checkout-container
-  :is(p, span, b, strong, h1, h2, h3, h4, label, li, td, th) {
   color: rgba(255, 255, 255, 0.8) !important;
   font-family: var(--raw-font) !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container :is(b, strong) {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(b, strong) {
   color: #ffffff !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container a {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  a {
   color: var(--raw-accent) !important;
   text-decoration: underline !important;
   text-underline-offset: 3px;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container input[type="radio"],
-.wp-block-woocommerce-checkout .mp-checkout-container input[type="checkbox"] {
-  accent-color: var(--raw-accent);
-}
-.wp-block-woocommerce-checkout
-  .mp-checkout-container
-  input:not([type="radio"]):not([type="checkbox"]),
-.wp-block-woocommerce-checkout .mp-checkout-container select,
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-input,
-.wp-block-woocommerce-checkout .mp-checkout-container [class*="card-input"],
-.wp-block-woocommerce-checkout .mp-checkout-container iframe {
-  background-color: #ffffff !important;
-  color: #111111 !important;
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(div, p, span):not(.mp-test-mode-badge) {
   border-radius: 0 !important;
 }
 
+/* Typing fields stay white with dark text */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(
+    input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]),
+    select,
+    .mp-checkout-custom-card-input,
+    .mp-checkout-custom-security-code-input,
+    .mp-input
+  ) {
+  background-color: #ffffff !important;
+  color: #111111 !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 0 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input
+  :is(input, select) {
+  border: 0 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(input, select):focus,
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-checkout-custom-card-input:focus-within {
+  outline: 2px solid var(--raw-accent) !important;
+  outline-offset: 0;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-label {
+  margin-bottom: 0.4rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-label
+  b {
+  color: var(--raw-accent) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-helper-message.info {
+  color: var(--raw-muted) !important;
+  font-size: 0.75rem !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-helper-message.error {
+  color: #ff4d4d !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-checkout-custom-security-code-tooltip {
+  color: var(--raw-muted) !important;
+  border: 1px solid var(--raw-line) !important;
+  border-radius: 50% !important;
+}
+
 /* "Modo test" notice */
-.wp-block-woocommerce-checkout .mp-test-mode-card {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-test-mode-card {
   display: block !important;
   margin: 0 0 1.25rem !important;
   padding: 0.9rem 1.1rem !important;
-  background: rgba(255, 153, 0, 0.08) !important;
+  background-color: rgba(255, 153, 0, 0.08) !important;
   border: 1px solid rgba(255, 153, 0, 0.35) !important;
   border-left: 3px solid #ff9900 !important;
-  border-radius: 0 !important;
 }
-.wp-block-woocommerce-checkout .mp-test-mode-card-content {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-test-mode-card-content {
   display: flex !important;
   align-items: center;
   gap: 0.6rem;
-  background: transparent !important;
 }
-.wp-block-woocommerce-checkout .mp-test-mode-badge {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-test-mode-badge {
   flex: 0 0 auto;
   border-radius: 0 !important;
-  background: #ff9900 !important;
+  background-color: #ff9900 !important;
   color: #000000 !important;
 }
-.wp-block-woocommerce-checkout .mp-test-mode-card .mp-test-mode-title {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-test-mode-title {
   margin: 0 !important;
   color: #ffb84d !important;
   font-size: 0.72rem !important;
@@ -1440,49 +1507,157 @@ main:has(.raw-product-shell) .wp-block-spacer {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.wp-block-woocommerce-checkout .mp-test-mode-card .mp-test-mode-description {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-test-mode-description {
   margin: 0.35rem 0 0 !important;
   font-size: 0.8rem !important;
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Benefits list (credits / Checkout Pro) */
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-benefits-list-title {
-  margin: 0 0 0.75rem !important;
+/* Headings inside the panels */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(
+    .mp-checkout-benefits-list-title,
+    .mp-checkout-pro-benefits-title,
+    .mp-checkout-ticket-text,
+    .mp-wallet-button-title span
+  ) {
   color: #ffffff !important;
   font-size: 0.95rem !important;
   font-weight: 800 !important;
+  text-align: left !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-benefits-list-item {
+
+/* Credits benefit steps */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-checkout-benefits-list-item {
   display: flex !important;
   gap: 0.6rem;
   margin: 0 0 0.5rem !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-benefits-list-count-list-item {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-checkout-benefits-list-count-list-item {
   margin: 0 !important;
   color: var(--raw-accent) !important;
   font-weight: 900 !important;
 }
 
-/* "Te llevaremos a Mercado Pago" box */
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-redirect-v3-container {
+/* Checkout Pro benefits: dark line icons made white */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(
+    .mp-checkout-pro-benefit-icon,
+    .mp-checkout-pro-redirect-icon,
+    .mp-checkout-redirect-v3-mp-logo-image
+  ) {
+  filter: brightness(0) invert(1);
+}
+
+/* "Te llevaremos a Mercado Pago" boxes */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(.mp-checkout-redirect-v3-container, .mp-checkout-pro-redirect) {
   margin-top: 1.25rem !important;
   padding: 1rem 1.25rem !important;
-  background: #000000 !important;
+  background-color: #000000 !important;
   border: 1px solid var(--raw-line) !important;
-  border-radius: 0 !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-redirect-v3-title {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(.mp-checkout-redirect-v3-title, .mp-checkout-pro-redirect-title) {
   color: #ffffff !important;
   font-weight: 800 !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-container .mp-checkout-redirect-v3-description {
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  :is(.mp-checkout-redirect-v3-description, .mp-checkout-pro-redirect-description) {
   color: var(--raw-muted) !important;
 }
-.wp-block-woocommerce-checkout .mp-checkout-redirect-v3-mp-logo-image {
-  background: #ffffff;
-  border-radius: 50%;
+
+/* Cash: Pago Facil / Rapipago list */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-table-container {
+  border: 1px solid var(--raw-line) !important;
 }
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-table-item {
+  border-bottom: 1px solid var(--raw-line) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-table-item:last-of-type {
+  border-bottom: 0 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-table-row-text-image {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-payment-method-logo-container {
+  background-color: #ffffff !important;
+  border-radius: 0 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-radio-radio {
+  accent-color: var(--raw-accent);
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-radio-label {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-radio-radio:checked
+  + .mp-input-radio-label {
+  border-color: var(--raw-accent) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-radio-radio:checked
+  + .mp-input-radio-label::after,
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-input-radio-radio:checked
+  + .mp-input-radio-label::before {
+  background-color: var(--raw-accent) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-terms-and-conditions-container {
+  text-align: left !important;
+  font-size: 0.78rem !important;
+}
+
+/* Card: saved-cards box with the yellow Mercado Pago button */
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-wallet-button-container {
+  padding: 1.25rem !important;
+  border: 1px solid var(--raw-line) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  #mp-wallet-button {
+  border-radius: 0 !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost)
+  .wc-block-components-radio-control-accordion-content
+  .mp-checkout-custom-card-flags
+  img {
+  background-color: #ffffff !important;
+}
+
 .wp-block-woocommerce-checkout .wc-block-components-payment-method-icons {
   margin: 0 !important;
 }
