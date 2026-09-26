@@ -1104,7 +1104,7 @@ main:has(.raw-product-shell) .wp-block-spacer {
 .raw-shop-cats ul ul {
   display: none !important;
 }
-body.post-type-archive-product .raw-shop-cats a.raw-cat-all {
+body.post-type-archive-product:not(.search) .raw-shop-cats a.raw-cat-all {
   background: var(--raw-accent);
   border-color: var(--raw-accent);
   color: #000000;
@@ -4676,4 +4676,13 @@ p.cart-empty {
   justify-content: center;
   aspect-ratio: 1 / 1;
   background: var(--raw-surface);
+}
+
+/* Product search results: the title is WordPress's query-title block
+   ("Resultados de busqueda para: ...") styled like the shop title, one
+   size smaller because it carries the searched term. */
+.raw-shop-shell .raw-shop-title.raw-search-title {
+  font-size: clamp(1.6rem, 4.5vw, 3.25rem) !important;
+  line-height: 1 !important;
+  overflow-wrap: anywhere !important;
 }
