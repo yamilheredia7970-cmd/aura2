@@ -1118,8 +1118,10 @@ p.cart-empty {
    WooCommerce classic markup via woocommerce/legacy-template).
 
    Layout: all product photos in an editorial grid on the left (first photo
-   big, the rest in pairs), buy panel on the right that stays in view while
-   scrolling. On mobile the photos become a swipeable row.
+   big, the rest in pairs), buy panel on the right. The panel is not sticky:
+   WooCommerce puts the tabs and related products in the same container,
+   so a sticky panel would slide over them. On mobile the photos become a
+   swipeable row.
    WooCommerce's slider (flexslider) is neutralized on purpose: it sizes
    slides with inline pixel widths and transforms, which is what left the
    big photo area blank. All photos are shown at once instead, so the
@@ -1374,12 +1376,6 @@ p.cart-empty {
 @media (min-width: 768px) {
   .raw-product-shell .summary.entry-summary {
     padding: 2.5rem 3rem 3rem !important;
-  }
-}
-@media (min-width: 1024px) {
-  .raw-product-shell .summary.entry-summary {
-    position: sticky;
-    top: calc(var(--wp-admin--admin-bar--height, 0px) + 1rem);
   }
 }
 
