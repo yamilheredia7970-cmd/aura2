@@ -202,31 +202,127 @@ main:has(.raw-product-shell) .wp-block-spacer {
   gap: 1.5rem;
 }
 
+/* Search: a real product search form (GET /wp/?s=...&post_type=product),
+   results render in the shop template. Desktop: inline in the header.
+   Below 1024px: its own full-width second row under logo + cart. */
 .raw-search {
-  display: none;
-  align-items: center;
-  gap: 0.75rem;
+  display: flex;
+  align-items: stretch;
+  margin: 0;
   background: var(--raw-surface);
-  padding: 0.5rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: border-color 0.2s ease;
+}
+.raw-search:focus-within {
+  border-color: var(--raw-accent);
+}
+.raw-search .raw-search-input {
+  width: 11rem;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0.55rem 0.9rem !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: #ffffff !important;
+  font-family: var(--raw-font) !important;
+  font-size: 0.7rem !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: width 0.25s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.raw-search .raw-search-input::placeholder {
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.raw-search .raw-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
 }
 @media (min-width: 1024px) {
-  .raw-search {
-    display: flex;
+  .raw-search .raw-search-input:focus {
+    width: 15rem;
   }
 }
-.raw-search span:first-child {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #737373;
+.raw-search .raw-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.raw-search .raw-search-btn:hover {
+  background: var(--raw-accent);
 }
 .raw-search-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border: 2px solid #737373;
+  position: relative;
+  display: block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid #a3a3a3;
   border-radius: 9999px;
+  transform: translate(-1px, -1px);
+}
+.raw-search-dot::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+  width: 2px;
+  height: 6px;
+  background: #a3a3a3;
+  transform: rotate(-45deg);
+}
+.raw-search .raw-search-btn:hover .raw-search-dot {
+  border-color: #000000;
+}
+.raw-search .raw-search-btn:hover .raw-search-dot::after {
+  background: #000000;
+}
+
+@media (max-width: 1023px) {
+  .raw-header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 80px;
+    padding: 1rem 1.25rem;
+    gap: 0.9rem 1rem;
+  }
+  .raw-header-inner .raw-logo {
+    order: 1;
+    margin-right: auto;
+  }
+  .raw-actions {
+    display: contents;
+  }
+  .raw-actions .raw-account,
+  .raw-actions .raw-cart {
+    order: 2;
+  }
+  .raw-actions .raw-search {
+    order: 3;
+    flex: 0 0 100%;
+  }
+  .raw-search .raw-search-input {
+    width: 100%;
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem !important;
+    font-size: 0.8rem !important;
+  }
+  .raw-search .raw-search-btn {
+    width: 3rem;
+  }
 }
 
 .raw-account {
