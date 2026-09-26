@@ -4686,3 +4686,59 @@ p.cart-empty {
   line-height: 1 !important;
   overflow-wrap: anywhere !important;
 }
+
+/* "No products found" and other notices printed by WooCommerce in block
+   themes use the light notice banner; restyle it dark site-wide and keep
+   the shop's empty-state box inside the shell (a full-width flex item
+   plus side margins was spilling past the right border). */
+.raw-shop-main
+  main.site-main
+  > :is(.woocommerce-no-products-found, .woocommerce-info, .wc-block-components-notice-banner) {
+  flex: 0 0 auto !important;
+  width: calc(100% - 3rem) !important;
+  margin: 2rem 1.5rem !important;
+}
+@media (min-width: 768px) {
+  .raw-shop-main
+    main.site-main
+    > :is(.woocommerce-no-products-found, .woocommerce-info, .wc-block-components-notice-banner) {
+    width: calc(100% - 6rem) !important;
+    margin: 2.5rem 3rem !important;
+  }
+}
+.raw-shop-main .woocommerce-no-products-found > * {
+  margin: 0 !important;
+}
+.wc-block-components-notice-banner {
+  align-items: center !important;
+  gap: 0.9rem !important;
+  padding: 1.1rem 1.25rem !important;
+  background: var(--raw-surface) !important;
+  border: 1px solid var(--raw-line) !important;
+  border-left: 3px solid var(--raw-accent) !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  font-family: var(--raw-font) !important;
+  font-size: 0.9rem !important;
+}
+.wc-block-components-notice-banner > svg {
+  flex: 0 0 auto;
+  padding: 3px !important;
+  background: var(--raw-accent) !important;
+  border-radius: 0 !important;
+  fill: #000000 !important;
+}
+.wc-block-components-notice-banner.is-error {
+  border-left-color: #ff4d4d !important;
+}
+.wc-block-components-notice-banner.is-error > svg {
+  background: #ff4d4d !important;
+}
+.wc-block-components-notice-banner .wc-block-components-notice-banner__content,
+.wc-block-components-notice-banner .wc-block-components-notice-banner__content * {
+  color: #ffffff !important;
+}
+.wc-block-components-notice-banner a {
+  color: var(--raw-accent) !important;
+  text-decoration: underline !important;
+}
