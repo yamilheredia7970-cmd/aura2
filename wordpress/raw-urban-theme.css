@@ -760,8 +760,12 @@ main:has(.raw-product-shell) .wp-block-spacer {
   min-width: 0;
 }
 
-/* Hide WooCommerce's own default page title — ours (.raw-shop-title) already
-   covers it — but keep everything else from the loop (it's functional). */
+/* WooCommerce's own title, breadcrumb and the whole products header. That
+   header prints the Shop PAGE's content as a "description"; any content
+   pasted into that page gets mangled by WordPress's auto-paragraphs and
+   rendered above the real catalog, so it is never shown. Category
+   descriptions live there too and are not used on this site. */
+.raw-shop-main .woocommerce-products-header,
 .raw-shop-main .woocommerce-products-header__title,
 .raw-shop-main .page-title,
 .raw-shop-main nav.woocommerce-breadcrumb {
@@ -769,103 +773,245 @@ main:has(.raw-product-shell) .wp-block-spacer {
 }
 
 /* --------------------------------------------------------------------------
-   Toolbar — result count + sort. WooCommerce renders these as two plain
-   sibling elements (a p then a form), not wrapped in a shared row
-   container, so a float/clear pairing (not flexbox) is what spreads them
-   to opposite ends of one row without needing to touch the markup.
+   Shop v3 — layout of the real catalog (Tienda, every category page).
+   The classic template prints its pieces as loose siblings inside
+   main.site-main; a wrapping flex row puts result count + sort on one
+   toolbar line and everything else full width.
    -------------------------------------------------------------------------- */
-.raw-shop-main .woocommerce-result-count,
-.raw-shop-main .woocommerce-ordering {
+.raw-shop-main main.site-main,
+.raw-shop-main #primary {
   margin: 0 !important;
-  padding: 1.75rem 0;
-  color: var(--raw-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
 }
-.raw-shop-main .woocommerce-result-count {
-  float: left;
+.raw-shop-main main.site-main {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
+.raw-shop-main main.site-main > * {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+.raw-shop-main main.site-main > .woocommerce-notices-wrapper:empty {
+  display: none !important;
+}
+
+/* Toolbar: "Mostrando 1-12 de 75" + sort select */
+.raw-shop-main .woocommerce-result-count,
 .raw-shop-main form.woocommerce-ordering {
-  float: right;
-  display: flex;
+  float: none !important;
+  display: flex !important;
   align-items: center;
+  margin: 0 !important;
+  padding: 1.1rem 1.5rem !important;
+  border-bottom: 1px solid var(--raw-line);
+  font-family: var(--raw-font) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--raw-muted) !important;
+}
+.raw-shop-main main.site-main > .woocommerce-result-count {
+  flex: 1 1 auto;
+}
+.raw-shop-main main.site-main > form.woocommerce-ordering {
+  flex: 0 0 auto;
+  gap: 0.75rem;
+}
+@media (min-width: 768px) {
+  .raw-shop-main .woocommerce-result-count,
+  .raw-shop-main form.woocommerce-ordering {
+    padding: 1.25rem 3rem !important;
+  }
+}
+.raw-shop-main .woocommerce-result-count::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.75rem;
+  background: var(--raw-accent);
+}
+.raw-shop-main form.woocommerce-ordering::before {
+  content: "Ordenar";
+  color: var(--raw-muted);
 }
 .raw-shop-main .woocommerce-ordering select {
   appearance: none;
   -webkit-appearance: none;
-  background-color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23ccff00' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right center;
-  border: none;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  margin: 0 !important;
+  padding: 0.65rem 2.4rem 0.65rem 0.9rem !important;
+  background-color: var(--raw-surface) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23ccff00' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.85rem center !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 0 !important;
+  color: #ffffff !important;
+  font-family: var(--raw-font) !important;
+  font-size: 0.65rem !important;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding-right: 1.25rem;
   cursor: pointer;
+  transition: border-color 0.2s ease;
 }
+.raw-shop-main .woocommerce-ordering select:hover,
 .raw-shop-main .woocommerce-ordering select:focus {
   outline: none;
+  border-color: var(--raw-accent) !important;
 }
-/* Clear the float before the grid so it always starts a fresh row,
-   regardless of which of the two toolbar elements is taller. */
-.raw-shop-main ul.products {
-  clear: both;
+.raw-shop-main .woocommerce-ordering select option {
+  background: var(--raw-surface);
+  color: #ffffff;
+}
+@media (max-width: 599px) {
+  .raw-shop-main main.site-main > .woocommerce-result-count,
+  .raw-shop-main main.site-main > form.woocommerce-ordering {
+    flex: 0 0 100%;
+  }
+  .raw-shop-main main.site-main > form.woocommerce-ordering {
+    justify-content: space-between;
+  }
+  .raw-shop-main .woocommerce-ordering select {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
 }
 
-/* --------------------------------------------------------------------------
-   Pagination — bold italic numerals matching the site's display type
-   instead of boxed browser-default page buttons; current page underlined
-   in accent rather than filled, matching the tab/nav-link underline
-   language used elsewhere on the site.
-   -------------------------------------------------------------------------- */
+/* Grid sits flush under the toolbar (cards come from Productos v2) */
+.raw-shop-shell .raw-shop-main main.site-main > ul.products {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 0 !important;
+}
+
+/* Empty category: "No se encontraron productos" */
+.raw-shop-main main.site-main > .woocommerce-info,
+.raw-shop-main main.site-main > .woocommerce-no-products-found {
+  margin: 2rem 1.5rem !important;
+}
+
+/* Pagination: square page buttons */
 .raw-shop-main .woocommerce-pagination {
-  margin-top: 1rem;
-  padding: 2.5rem 0;
-  border-top: 1px solid var(--raw-line);
+  margin: 0 !important;
+  padding: 2.5rem 1.5rem !important;
+  border: 0 !important;
   text-align: center;
 }
-.raw-shop-main .woocommerce-pagination ul {
+.raw-shop-main .woocommerce-pagination ul.page-numbers {
+  display: inline-flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
   list-style: none;
-  display: inline-flex;
+}
+.raw-shop-main .woocommerce-pagination ul.page-numbers li {
+  margin: 0 !important;
+  border: 0 !important;
+  float: none !important;
+  overflow: visible !important;
+}
+.raw-shop-main .woocommerce-pagination .page-numbers a,
+.raw-shop-main .woocommerce-pagination .page-numbers span {
+  display: inline-flex !important;
   align-items: center;
-  gap: 2rem;
-  padding: 0;
-  margin: 0;
-}
-.raw-shop-main .woocommerce-pagination a,
-.raw-shop-main .woocommerce-pagination span {
-  display: inline-block;
-  color: var(--raw-muted);
-  border: none;
-  border-bottom: 2px solid transparent;
-  text-decoration: none;
-  font-size: 1.125rem;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: -0.02em;
-  padding-bottom: 0.25rem;
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-.raw-shop-main .woocommerce-pagination a:hover {
-  color: #ffffff;
-}
-.raw-shop-main .woocommerce-pagination .current {
-  color: #ffffff;
-  border-bottom-color: var(--raw-accent);
-}
-.raw-shop-main .woocommerce-pagination a.next {
-  color: var(--raw-accent);
+  justify-content: center;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.75rem !important;
+  border: 1px solid var(--raw-line) !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-family: var(--raw-font) !important;
+  font-size: 0.85rem !important;
+  font-weight: 800;
   font-style: normal;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
 }
-.raw-shop-main .woocommerce-pagination a.next:hover {
+.raw-shop-main .woocommerce-pagination .page-numbers a:hover {
+  border-color: var(--raw-accent) !important;
+  color: #ffffff !important;
+}
+.raw-shop-main .woocommerce-pagination .page-numbers span.current {
+  background: var(--raw-accent) !important;
+  border-color: var(--raw-accent) !important;
+  color: #000000 !important;
+}
+.raw-shop-main .woocommerce-pagination .page-numbers span.dots {
+  border-color: transparent !important;
+}
+
+/* Category chips under the page title */
+.raw-shop-cats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.raw-shop-cats .wp-block-woocommerce-product-categories,
+.raw-shop-cats .wc-block-product-categories,
+.raw-shop-cats ul.wc-block-product-categories-list {
+  display: contents !important;
+}
+.raw-shop-cats a.raw-cat-all,
+.raw-shop-cats li.wc-block-product-categories-list-item {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 !important;
+  padding: 0.55rem 0.9rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  list-style: none;
+  font-family: var(--raw-font);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: #ffffff;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.raw-shop-cats li.wc-block-product-categories-list-item a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.raw-shop-cats li.wc-block-product-categories-list-item:hover,
+.raw-shop-cats a.raw-cat-all:hover {
+  border-color: var(--raw-accent);
+  color: var(--raw-accent);
+}
+.raw-shop-cats .wc-block-product-categories-list-item-count {
+  color: var(--raw-muted);
+  font-weight: 700;
+}
+.raw-shop-cats .wc-block-product-categories-list-item-count::before,
+.raw-shop-cats .wc-block-product-categories-list-item-count::after {
+  content: none !important;
+}
+.raw-shop-cats ul ul {
+  display: none !important;
+}
+body.post-type-archive-product .raw-shop-cats a.raw-cat-all {
+  background: var(--raw-accent);
+  border-color: var(--raw-accent);
+  color: #000000;
 }
 
 /* --------------------------------------------------------------------------
