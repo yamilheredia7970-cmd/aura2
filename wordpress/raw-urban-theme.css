@@ -1475,6 +1475,29 @@ main:has(.raw-product-shell) .wp-block-spacer {
   border-color: var(--raw-accent) !important;
   box-shadow: 0 0 0 1px var(--raw-accent) !important;
 }
+/* Mercado Pago writes an inline background with !important on the card
+   number box (white, plus the card brand icon once detected), which no
+   stylesheet can override. A huge inset shadow paints above the
+   background and below the iframe, so the box stays dark regardless. */
+:is(.wp-block-woocommerce-checkout, #raw-boost-a#raw-boost-b#raw-boost-c)
+  .wc-block-components-radio-control-accordion-content
+  div:is(.mp-checkout-custom-card-input, .mp-checkout-custom-security-code-input):not(#raw-none) {
+  box-shadow: inset 0 0 0 999px var(--raw-surface) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost-a#raw-boost-b#raw-boost-c)
+  .wc-block-components-radio-control-accordion-content
+  div:is(.mp-checkout-custom-card-input, .mp-checkout-custom-security-code-input):not(
+    #raw-none
+  ):focus-within {
+  box-shadow:
+    inset 0 0 0 999px var(--raw-surface),
+    0 0 0 1px var(--raw-accent) !important;
+}
+:is(.wp-block-woocommerce-checkout, #raw-boost-a#raw-boost-b#raw-boost-c)
+  .wc-block-components-radio-control-accordion-content
+  :is(div, input).mp-error:not(#raw-none) {
+  border-color: #ff4d4d !important;
+}
 :is(.wp-block-woocommerce-checkout, #raw-boost-a#raw-boost-b#raw-boost-c)
   .wc-block-components-radio-control-accordion-content
   .mp-input-label {
