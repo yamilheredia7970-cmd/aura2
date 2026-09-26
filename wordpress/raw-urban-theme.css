@@ -1326,9 +1326,25 @@ main:has(.raw-product-shell) .wp-block-spacer {
 .wp-block-woocommerce-checkout .wc-block-components-radio-control-accordion-content:empty {
   display: none !important;
 }
-.wp-block-woocommerce-checkout .wc-block-components-radio-control-accordion-content p {
+.wp-block-woocommerce-checkout
+  .wc-block-components-radio-control-accordion-content:not(:has(div div))
+  p {
   margin: 0 !important;
   color: inherit !important;
+}
+/* Payment plugins (Mercado Pago: cash, card, account) render their own
+   white card inside this area and leave part of their text uncolored, so it
+   inherited the checkout's white and became unreadable. Rich plugin content
+   (nested divs) gets dark text back; plain descriptions like bank transfer
+   keep the light text on the dark background. */
+.wp-block-woocommerce-checkout .wc-block-components-radio-control-accordion-content:has(div div) {
+  color: #1a1a1a !important;
+  padding: 0 1.25rem 1.25rem !important;
+}
+@media (min-width: 600px) {
+  .wp-block-woocommerce-checkout .wc-block-components-radio-control-accordion-content:has(div div) {
+    padding-left: 3.5rem !important;
+  }
 }
 .wp-block-woocommerce-checkout .wc-block-components-payment-method-icons {
   margin: 0 !important;
