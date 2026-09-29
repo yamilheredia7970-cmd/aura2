@@ -2329,8 +2329,8 @@ p.cart-empty {
    Single Product v2 — full rewrite (single-product template, real
    WooCommerce classic markup via woocommerce/legacy-template).
 
-   Layout: all product photos in an editorial grid on the left (first photo
-   big, the rest in pairs), buy panel on the right. The panel is not sticky:
+   Layout: main photo plus a row of square thumbnails on the left, buy
+   panel on the right, half and half. The panel is not sticky:
    WooCommerce puts the tabs and related products in the same container,
    so a sticky panel would slide over them. On mobile the photos become a
    swipeable row.
@@ -2413,7 +2413,7 @@ p.cart-empty {
 }
 @media (min-width: 1024px) {
   .raw-product-shell div.product {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 .raw-product-shell div.product::before,
@@ -2469,7 +2469,7 @@ p.cart-empty {
   margin: 0 !important;
   padding: 0 !important;
   opacity: 1 !important;
-  background: var(--raw-line);
+  background: var(--raw-black);
   border-bottom: 1px solid var(--raw-line);
 }
 @media (min-width: 1024px) {
@@ -2484,7 +2484,7 @@ p.cart-empty {
 }
 .raw-product-shell .woocommerce-product-gallery__wrapper {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   width: 100% !important;
   margin: 0 !important;
@@ -2507,19 +2507,33 @@ p.cart-empty {
 .raw-product-shell .woocommerce-product-gallery__image:first-child {
   grid-column: 1 / -1;
 }
-.raw-product-shell .woocommerce-product-gallery__image:last-child:nth-child(even) {
-  grid-column: 1 / -1;
+/* Extra photos: small square thumbnails under the main photo; a click
+   opens the full-screen gallery at that photo. */
+.raw-product-shell .woocommerce-product-gallery__image:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--raw-accent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.raw-product-shell .woocommerce-product-gallery__image:not(:first-child):hover::after {
+  opacity: 1;
+}
+.raw-product-shell .woocommerce-product-gallery__image:not(:first-child) .zoomImg {
+  display: none !important;
 }
 .raw-product-shell .woocommerce-product-gallery__image > a {
   display: block !important;
   width: 100% !important;
   height: 100% !important;
-  padding: 1.5rem;
+  padding: 0.6rem;
   box-sizing: border-box;
   cursor: zoom-in;
 }
 .raw-product-shell .woocommerce-product-gallery__image:first-child > a {
-  padding: 2.5rem;
+  padding: 2rem;
 }
 .raw-product-shell .woocommerce-product-gallery__image img:not(.zoomImg) {
   display: block !important;
