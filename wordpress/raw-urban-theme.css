@@ -2329,16 +2329,13 @@ p.cart-empty {
    Single Product v2 — full rewrite (single-product template, real
    WooCommerce classic markup via woocommerce/legacy-template).
 
-   Layout: main photo plus a row of square thumbnails on the left, buy
+   Layout: square photo frame with a thumbnail strip on the left, buy
    panel on the right, half and half. The panel is not sticky:
    WooCommerce puts the tabs and related products in the same container,
-   so a sticky panel would slide over them. On mobile the photos become a
-   swipeable row.
-   WooCommerce's slider (flexslider) is neutralized on purpose: it sizes
-   slides with inline pixel widths and transforms, which is what left the
-   big photo area blank. All photos are shown at once instead, so the
-   thumbnails strip is no longer needed. Click still opens the lightbox.
-   Most properties carry !important because woocommerce.css targets the
+   so a sticky panel would slide over them.
+   The gallery uses WooCommerce's own slider; its inline slide widths and
+   transforms must never be overridden (forcing them is what once left the
+   photo area blank). Most properties carry !important because woocommerce.css targets the
    same elements with higher specificity (floats, 48% widths, purple
    prices, rounded tabs).
    -------------------------------------------------------------------------- */
@@ -2478,62 +2475,46 @@ p.cart-empty {
     border-right: 1px solid var(--raw-line);
   }
 }
+/* WooCommerce's own slider (flexslider) drives the gallery: one photo at a
+   time in a fixed square frame, thumbnails underneath switch it, and it
+   swipes on touch screens. Widths/transforms stay the slider's own (inline
+   styles, never forced here); only the frame and thumbnails are styled.
+   Every photo, square or tall, is contained in the same square, so every
+   product gets the same balanced layout. */
 .raw-product-shell .woocommerce-product-gallery .flex-viewport {
-  height: auto !important;
-  overflow: visible !important;
+  background: #ffffff;
 }
 .raw-product-shell .woocommerce-product-gallery__wrapper {
-  display: grid !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
-  transform: none !important;
-  transition: none !important;
 }
 .raw-product-shell .woocommerce-product-gallery__image {
-  position: relative !important;
-  display: block !important;
-  float: none !important;
-  width: 100% !important;
-  max-width: 100% !important;
+  position: relative;
   margin: 0 !important;
   padding: 0 !important;
   aspect-ratio: 1 / 1;
-  overflow: hidden !important;
+  overflow: hidden;
   background: #ffffff;
 }
-.raw-product-shell .woocommerce-product-gallery__image:first-child {
-  grid-column: 1 / -1;
-}
-/* Extra photos: small square thumbnails under the main photo; a click
-   opens the full-screen gallery at that photo. */
-.raw-product-shell .woocommerce-product-gallery__image:not(:first-child)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--raw-accent);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-.raw-product-shell .woocommerce-product-gallery__image:not(:first-child):hover::after {
-  opacity: 1;
-}
-.raw-product-shell .woocommerce-product-gallery__image:not(:first-child) .zoomImg {
-  display: none !important;
+/* Single photo (no slider): fill the frame */
+.raw-product-shell
+  .woocommerce-product-gallery:not(:has(.flex-viewport))
+  .woocommerce-product-gallery__image {
+  width: 100% !important;
+  float: none !important;
 }
 .raw-product-shell .woocommerce-product-gallery__image > a {
   display: block !important;
   width: 100% !important;
   height: 100% !important;
-  padding: 0.6rem;
+  padding: 2rem;
   box-sizing: border-box;
   cursor: zoom-in;
 }
-.raw-product-shell .woocommerce-product-gallery__image:first-child > a {
-  padding: 2rem;
+@media (max-width: 767px) {
+  .raw-product-shell .woocommerce-product-gallery__image > a {
+    padding: 1.25rem;
+  }
 }
 .raw-product-shell .woocommerce-product-gallery__image img:not(.zoomImg) {
   display: block !important;
@@ -2546,7 +2527,55 @@ p.cart-empty {
   filter: none !important;
   box-shadow: none !important;
 }
-.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs,
+
+/* Thumbnail strip: equal squares, 5 per row */
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--raw-black);
+  border-top: 1px solid var(--raw-line);
+  list-style: none !important;
+}
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs::before,
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs::after {
+  display: none !important;
+}
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs li {
+  width: auto !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: var(--raw-black);
+}
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs li img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  padding: 0.45rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  opacity: 0.45;
+  filter: grayscale(100%);
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs li img:hover {
+  opacity: 0.85;
+  filter: none;
+}
+.raw-product-shell .woocommerce-product-gallery .flex-control-thumbs li img.flex-active {
+  opacity: 1;
+  filter: none;
+  box-shadow: inset 0 0 0 2px var(--raw-accent);
+}
 .raw-product-shell .woocommerce-product-gallery .flex-direction-nav {
   display: none !important;
 }
@@ -2563,30 +2592,6 @@ p.cart-empty {
 }
 .raw-product-shell .woocommerce-product-gallery__trigger:hover {
   background: #ffffff !important;
-}
-
-/* Mobile / tablet: swipeable row of photos */
-@media (max-width: 1023px) {
-  .raw-product-shell .woocommerce-product-gallery__wrapper {
-    display: flex !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .raw-product-shell .woocommerce-product-gallery__wrapper::-webkit-scrollbar {
-    display: none;
-  }
-  .raw-product-shell .woocommerce-product-gallery__image {
-    flex: 0 0 86% !important;
-    scroll-snap-align: start;
-  }
-  .raw-product-shell .woocommerce-product-gallery__image:only-child {
-    flex-basis: 100% !important;
-  }
-  .raw-product-shell .woocommerce-product-gallery__image > a,
-  .raw-product-shell .woocommerce-product-gallery__image:first-child > a {
-    padding: 1.25rem;
-  }
 }
 
 /* ===== Buy panel (right column) ===== */
